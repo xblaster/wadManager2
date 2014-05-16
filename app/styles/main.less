@@ -2,3 +2,16 @@
 @import "../styles-no-compile/flat.less";
 @import "../styles-no-compile/common.less";
 @import "../styles-no-compile/variables.less";
+
+
+@media (min-width: @screen-md) {
+	.country-list {
+		-webkit-column-count:3;
+
+		.list-group-item {
+			-webkit-column-break-inside:avoid;	
+		}
+	}
+
+
+}

@@ -1,21 +1,11 @@
-<div ng-include="'partials/navbar'"></div>
+<div class="container">
+  <h1>Select your country</h1>
 
-<div class="jumbotron">
-  <h1>'Allo, 'Allo!</h1>
-  <p class="lead">
-    <img src="images/yeoman.png" alt="I'm Yeoman"><br>
-    Always a pleasure scaffolding your apps.
-  </p>
-  <p><a class="btn btn-lg btn-success" ng-href="#">Splendid!</a></p>
-</div>
-
-<div class="row marketing">
-  <div ng-repeat="thing in awesomeThings">
-      <h4>{{thing.name}}</h4>
-      <p>{{thing.info}}</p>
-  </div>
-</div>
-
-<div class="footer">
-  <p>♥ from the Yeoman team</p>
+  <ul class="list-group country-list">
+  <li  class="list-group-item" ng-repeat="team in teams |orderBy: 'name'"> 
+    <div class=""> {{team.name}} 
+      <span class="pull-right" ng-style="{'background-color': '#'+team.color}" style="padding-left: 0.3em; padding-right: 0.3em; color: white; width: 3em; text-align: center; font-weight: bold">{{team.abbreviation}}</span>
+      </div>
+  </li>
+  </ul>
 </div>
