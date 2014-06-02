@@ -5,7 +5,7 @@ angular.module('v9App')
 
 
   	$scope.refresh = function() {
-  		$http.get('/rest/balanceentry').success(function(data) {
+  		$http.get('/rest/balanceentry?sort=date').success(function(data) {
       		$scope.balances = data;
     	});	
   	}
