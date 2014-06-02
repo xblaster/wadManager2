@@ -12,9 +12,13 @@ angular.module('v9App', [
         templateUrl: 'partials/main',
         controller: 'MainCtrl'
       })
+      .when('/entry/add', {
+        templateUrl: 'partials/entry/add',
+        controller: 'EntryAddCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
       
-    $locationProvider.html5Mode(true);
+    /*$locationProvider.html5Mode(true);*/
   });

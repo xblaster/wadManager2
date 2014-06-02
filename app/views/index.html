@@ -51,6 +51,7 @@
 
     <!-- build:js(app) scripts/vendor.js -->
     <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
     <script src="bower_components/angular-cookies/angular-cookies.js"></script>
@@ -58,6 +59,8 @@
     <script src="bower_components/less/dist/less-1.7.0.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/moment/moment.js"></script>
+    <script src="bower_components/pickadate/lib/picker.js"></script>
+    <script src="bower_components/underscore/underscore.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -66,7 +69,11 @@
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/controllers/navbar.js"></script>
         <script src="scripts/services/Team.js"></script>
-        <script src="scripts/services/MatchService.js"></script>
+        <script src="scripts/controllers/entry/add.js"></script>
         <!-- endbuild -->
+
+        <link rel="stylesheet" href="bower_components/pickadate/lib/themes/default.css">
+        <link rel="stylesheet" href="bower_components/pickadate/lib/themes/default.date.css">
+        <script src="bower_components/pickadate/lib/picker.date.js"></script>
 </body>
 </html>

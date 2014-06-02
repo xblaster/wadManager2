@@ -1,8 +1,12 @@
 <div class="navbar navbar-default" ng-controller="NavbarCtrl">
-  <ul class="nav nav-pills pull-right">
+ <div class="navbar-header">
+      <a class="navbar-brand" href="#">WadManager 2</a>
+    </div>
+  <ul class="nav navbar-nav">
     <li ng-repeat="item in menu" ng-class="{active: isActive(item.link)}">
         <a ng-href="{{item.link}}">{{item.title}}</a>
     </li>
   </ul>
-  <h3 class="text-muted">Brazil 2014</h3>
+   
+
 </div>

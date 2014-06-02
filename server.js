@@ -4,7 +4,7 @@ var express = require('express'),
     path = require('path'),
     fs = require('fs'),
     mongoose = require('mongoose');
-
+var mers = require('mers');
 /**
  * Main application file
  */
@@ -14,6 +14,9 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 var config = require('./lib/config/config');
 var db = mongoose.connect(config.mongo.uri, config.mongo.options);
+
+  
+    
 
 // Bootstrap models
 var modelsPath = path.join(__dirname, 'lib/models');
@@ -29,8 +32,12 @@ require('./lib/config/dummydata');
 // Setup Express
 var app = express();
 
+app.use('/rest', mers({uri: config.mongo.uri}).rest());
+
 require('./lib/config/express')(app);
 require('./lib/routes')(app);
+
+
 
 
 
