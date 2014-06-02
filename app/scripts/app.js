@@ -16,6 +16,10 @@ angular.module('v9App', [
         templateUrl: 'partials/entry/add',
         controller: 'EntryAddCtrl'
       })
+      .when('/upload', {
+        templateUrl: 'partials/upload',
+        controller: 'UploadCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

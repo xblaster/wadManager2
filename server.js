@@ -5,6 +5,7 @@ var express = require('express'),
     fs = require('fs'),
     mongoose = require('mongoose');
 var mers = require('mers');
+var busboy = require('connect-busboy');
 /**
  * Main application file
  */
@@ -33,6 +34,7 @@ require('./lib/config/dummydata');
 var app = express();
 
 app.use('/rest', mers({uri: config.mongo.uri}).rest());
+app.use(busboy()); 
 
 require('./lib/config/express')(app);
 require('./lib/routes')(app);

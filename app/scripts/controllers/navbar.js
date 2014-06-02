@@ -8,11 +8,11 @@ angular.module('v9App')
     },
     {
       'title': 'add',
-      'link': '/entry/add'
+      'link': '#/entry/add'
     },
     {
       'title': 'upload',
-      'link': '/upload'
+      'link': '#/upload'
     }
     ];
     
