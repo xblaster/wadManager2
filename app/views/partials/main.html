@@ -1,27 +1,78 @@
-<div class="container">
-  <h1>Summary</h1>
+<div style="padding: 2em">
 
-  <table class="table">
+  
+  <div class="col-sm-8" style="border-right: 1px solid #DDD; padding-right: 4em" >
+
+  
+
+  <h1>Summary</h1>
+  <div>
+    <div>
+  <ul class="pagination"  style="margin-bottom: 0">
+    <li ng-repeat="month in months" ng-class="{'active': month == currMonth}">
+     <a href="#/view/{{month}}/{{currYear}}"> {{month}}</a>
+    </li>
+  </ul>
+
+
+  <ul class="pagination pull-right" style="margin-bottom: 0">
+    <li ng-repeat="year in years" ng-class="{'active': year == currYear}">
+     <a href="#/view/{{currMonth}}/{{year}}"> {{year}}</a>
+    </li>
+  </ul>
+    <!-- action bar -->
+    <br/>
+    <div class="pull-right">
+      <p>
+        <a class="btn btn-primary" href="#/entry/add">Add</a>
+      </p>
+    </div>
+    </div>
+  
+    
+
+  </div>
+
+
+  <!-- balances -->
+
+  <div class="alert alert-info" ng-if="balances.payload.length ==0">
+      Aucun mouvement pour ce mois :(. Zut alors !
+  </div>
+
+  <table class="table table-bordered table-striped">
   	<tr ng-repeat="balance in balances.payload">
       <td>{{balance.date | date : 'dd/MM/yyyy'}}</td>
   		<td>
         <div class="pull-right">
-          <span class="badge badge-default" ng-repeat="tag in balance.tags">{{tag}}</span>
+          <span class="badge badge-default" ng-repeat="tag in balance.tags track by $index">{{tag}}</span>
         </div>
 
         {{balance.description}}
       </td>
   		<td><div class="pull-right">{{balance.amount | number:2}} EUR</div></td>
   		<td>
-  			<div class="pull-right">
+  			<div class="pull-right btn-group">
         <a class="btn btn-xs btn-default" href="#/entry/edit/{{balance._id}}">edit</a>
-  			<a class="btn btn-xs btn-default" ng-click="remove(balance._id)">Delete</a>
+  			<!--<a class="btn btn-xs btn-default btn-danger" ng-click="remove(balance._id)">Delete</a>-->
   			</div>
   		</td>
   	</tr>
   </table>
 
   
-  <a class="btn btn-primary" href="#/entry/add">Add</a>
+  
+  </div>
+
+
+  <div  class="col-sm-4">
+    <h1>Budget</h1>
+      <table class="table table-bordered table-striped">
+        <tr ng-repeat ="(name, budget) in budgets">
+          <td>{{name}}</td>
+          <td style="text-align:right">{{budget | number: 2}}EUR</td>
+        </tr>
+      </table>
+  </div>
  
 </div>

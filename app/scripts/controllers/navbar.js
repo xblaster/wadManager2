@@ -3,15 +3,11 @@
 angular.module('v9App')
   .controller('NavbarCtrl', function ($scope, $location) {
     $scope.menu = [{
-      'title': '/',
+      'title': 'comptes',
       'link': '/'
     },
     {
-      'title': 'add',
-      'link': '#/entry/add'
-    },
-    {
-      'title': 'upload',
+      'title': 'importer EXL',
       'link': '#/upload'
     }
     ];

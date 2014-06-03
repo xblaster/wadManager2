@@ -12,6 +12,10 @@ angular.module('v9App', [
         templateUrl: 'partials/main',
         controller: 'MainCtrl'
       })
+      .when('/view/:month/:year', {
+        templateUrl: 'partials/main',
+        controller: 'MainCtrl'
+      })
       .when('/entry/edit/:entryId', {
         templateUrl: 'partials/entry/edit',
         controller: 'EntryEditCtrl'
