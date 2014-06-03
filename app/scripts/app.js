@@ -16,7 +16,7 @@ angular.module('v9App', [
         templateUrl: 'partials/main',
         controller: 'MainCtrl'
       })
-      .when('/entry/edit/:entryId', {
+      .when('/entry/edit/:month/:year', {
         templateUrl: 'partials/entry/edit',
         controller: 'EntryEditCtrl'
       })
@@ -31,6 +31,10 @@ angular.module('v9App', [
       .when('/settings', {
         templateUrl: 'partials/settings',
         controller: 'SettingsCtrl'
+      })
+      .when('/budget/edit/:entryId', {
+        templateUrl: 'partials/budget/edit',
+        controller: 'BudgetEditCtrl'
       })
       .otherwise({
         redirectTo: '/'
