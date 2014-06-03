@@ -1,0 +1,18 @@
+<div class="container">
+	{{tags}}
+
+	<table>
+		<tr ng-repeat="tag in tags"> 
+			<td><input type="text" ng-model="tag.name"/></td>
+			<td ng-style="{'background-color' : tag.color}">{{tag.color}}
+				
+			</td>
+			<td>
+				<a ng-click="tag.color = color.hex" ng-style="{'background-color' : color.hex }" style="min-height: 1em; width: 1em" ng-repeat="color in colors"> x </a>
+			</td>
+			<td><a ng-click="removeTag($index)" class="btn btn-xs btn-danger">-</a></td>
+		</tr>
+	</table>
+	<a ng-click="addTag()" class="btn btn-default">Ajouter</a>
+	<a ng-click="save()" class="btn btn-primary">Sauvegarder</a>
+</div>

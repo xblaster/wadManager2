@@ -7,12 +7,16 @@ angular.module('v9App')
       'link': '/'
     },
     {
+      'title': 'parametres',
+      'link': '#/settings'
+    },
+    {
       'title': 'importer EXL',
       'link': '#/upload'
     }
     ];
     
     $scope.isActive = function(route) {
-      return route === $location.path();
+      return route === "#"+$location.path();
     };
   });

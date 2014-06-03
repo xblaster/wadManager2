@@ -28,6 +28,10 @@ angular.module('v9App', [
         templateUrl: 'partials/upload',
         controller: 'UploadCtrl'
       })
+      .when('/settings', {
+        templateUrl: 'partials/settings',
+        controller: 'SettingsCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

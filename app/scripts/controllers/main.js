@@ -12,7 +12,28 @@ angular.module('v9App')
         $scope.currYear = $routeParams.year;
         $scope.currMonth = $routeParams.month;
     }
+    
+    $scope.tagsColor = [];
 
+    $http.get('/params/get?name=tags').success(function(result) {
+      $scope.tagsColor = result;
+    });
+
+    $scope.getColorForTag = function (tagName) {
+      console.log(tagName);
+      console.log($scope.tagsColor)
+      var key;
+      //damn this is dirt :\
+       for (key in $scope.tagsColor) {
+          var elt = $scope.tagsColor[key];
+          console.log(elt.name+"/"+tagName);
+          if (elt.name === tagName) {
+            return elt.color;
+          }
+       };
+       console.log("-----");
+       return '#CCC';
+    }
 
     $scope.months = _.range(1,13);
     $scope.years = _.range(parseInt($scope.currYear,10)-3,parseInt($scope.currYear,10)+3);

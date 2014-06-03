@@ -19,14 +19,20 @@ angular.module('v9App')
   	$scope.saveInProgress = true;
 
   	elt.amount = (""+elt.amount).replace(",",".");
-    elt.tags = _.map(elt.tags.split(","), function(e) {return e.trim()}) ;
 
+    //transform tags
+    if (elt.tags.trim().length==0) {
+      elt.tags = []; 
+    }else {
+      elt.tags = _.map(elt.tags.split(","), function(e) {return e.trim()}) ;  
+    }
 
   	$http.post('/entry/save', elt).success(function() {
       $scope.saveInProgress = false;
       $window.history.back();
-    })
+    });
   }
+  
 
   $('.datepicker').pickadate({
     monthsFull: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
