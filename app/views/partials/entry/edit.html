@@ -1,4 +1,3 @@
-<p>This is the entry/add view.</p>
 
 
 <form ng-submit="save(entry)">
@@ -16,6 +15,11 @@
   <div class="form-group">
     <label>Date</label>
     <input type="text" class="form-control datepicker" ng-model="entry.date">
+  </div>
+
+   <div class="form-group">
+    <label>Tags</label>
+    <input type="text" class="form-control" ng-model="entry.tags">
   </div>
 
   <div>

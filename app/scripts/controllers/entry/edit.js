@@ -1,16 +1,26 @@
 'use strict';
 
 angular.module('v9App')
-  .controller('EntryAddCtrl', function ($scope, $http, $window) {
+  .controller('EntryEditCtrl', function ($scope, $http, $window, $routeParams) {
     /*$http.get('/api/awesomeThings').success(function(awesomeThings) {
       $scope.awesomeThings = awesomeThings;
     });*/
 
+  if ($routeParams.entryId) {
+    $http.get('/rest/balanceentry/'+$routeParams.entryId).success(function(entry) {
+      $scope.entry = entry.payload;
+      $scope.entry.date = moment($scope.entry.date).format('YYYY/MM/DD');
+      $scope.entry.tags =  _.reduce($scope.entry.tags, function(memo, num){ return memo +","+num; }, "")
+          .replace(",",""); //Remove the first ","
+    });
+  }
 
   $scope.save = function(elt) {
   	$scope.saveInProgress = true;
 
-  	elt.amount = elt.amount.replace(",",".");
+  	elt.amount = (""+elt.amount).replace(",",".");
+    elt.tags = _.map(elt.tags.split(","), function(e) {return e.trim()}) ;
+
 
   	$http.post('/entry/save', elt).success(function() {
       $scope.saveInProgress = false;

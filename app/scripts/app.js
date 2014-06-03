@@ -12,9 +12,13 @@ angular.module('v9App', [
         templateUrl: 'partials/main',
         controller: 'MainCtrl'
       })
+      .when('/entry/edit/:entryId', {
+        templateUrl: 'partials/entry/edit',
+        controller: 'EntryEditCtrl'
+      })
       .when('/entry/add', {
-        templateUrl: 'partials/entry/add',
-        controller: 'EntryAddCtrl'
+        templateUrl: 'partials/entry/edit',
+        controller: 'EntryEditCtrl'
       })
       .when('/upload', {
         templateUrl: 'partials/upload',
