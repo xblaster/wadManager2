@@ -69,7 +69,7 @@ angular.module('v9App')
               //console.log(tag);
               budgets[tag] = budgets[tag]|| {prevision: 0, consumed:0};
               budgets[tag].description = elt.description;
-              budgets[tag].consumed = budgets[tag].consumed + elt.amount;              
+              budgets[tag].consumed = budgets[tag].consumed + Math.abs(elt.amount);              
 
             });
         })
@@ -78,7 +78,7 @@ angular.module('v9App')
             var tag = elt.name;
           //console.log(elt);
             budgets[tag] = budgets[tag]|| {prevision: 0, consumed:0};            
-            budgets[tag].prevision = elt.value;
+            budgets[tag].prevision = Math.abs(elt.value);
         })
 
         $scope.budgetsComputed = budgets;
