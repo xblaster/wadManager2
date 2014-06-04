@@ -2,9 +2,6 @@
 
 angular.module('v9App')
   .controller('EntryEditCtrl', function ($scope, $http, $window, $routeParams) {
-    /*$http.get('/api/awesomeThings').success(function(awesomeThings) {
-      $scope.awesomeThings = awesomeThings;
-    });*/
 
   if ($routeParams.entryId) {
     $http.get('/rest/balanceentry/'+$routeParams.entryId).success(function(entry) {

@@ -1,16 +1,23 @@
 <div class="container">
 	{{tags}}
 
-	<table>
+	<table class="table table-bordered">
+		<tr>
+			<th>Tag</th>
+			<th>Description</th>
+			<th>Couleur</th>
+			<th>Actions</th>
+		</tr>
 		<tr ng-repeat="tag in tags"> 
 			<td><input type="text" ng-model="tag.name"/></td>
-			<td ng-style="{'background-color' : tag.color}">{{tag.color}}
-				
+			<td><textarea type="text" ng-model="tag.description"></textarea></td>
+			<td ng-style="{'background-color' : tag.color}">
+				<input colorpicker ng-model="tag.color" type="text">
 			</td>
-			<td>
-				<a ng-click="tag.color = color.hex" ng-style="{'background-color' : color.hex }" style="min-height: 1em; width: 1em" ng-repeat="color in colors"> x </a>
-			</td>
-			<td><a ng-click="removeTag($index)" class="btn btn-xs btn-danger">-</a></td>
+			
+			<td><a ng-click="removeTag($index)" class="btn btn-danger">
+				<span class="glyphicon glyphicon-minus"></span>
+			</a></td>
 		</tr>
 	</table>
 	<a ng-click="addTag()" class="btn btn-default">Ajouter</a>

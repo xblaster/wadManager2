@@ -4,7 +4,8 @@ angular.module('v9App', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
-  'ngRoute'
+  'ngRoute',
+  'colorpicker.module'
 ])
   .config(function ($routeProvider, $locationProvider) {
     $routeProvider
@@ -16,7 +17,11 @@ angular.module('v9App', [
         templateUrl: 'partials/main',
         controller: 'MainCtrl'
       })
-      .when('/entry/edit/:month/:year', {
+      .when('/budget/view/:month/:year', {
+        templateUrl: 'partials/budget/view',
+        controller: 'MainCtrl'
+      })
+      .when('/entry/edit/:entryId', {
         templateUrl: 'partials/entry/edit',
         controller: 'EntryEditCtrl'
       })
@@ -32,7 +37,7 @@ angular.module('v9App', [
         templateUrl: 'partials/settings',
         controller: 'SettingsCtrl'
       })
-      .when('/budget/edit/:entryId', {
+      .when('/budget/edit/:month/:year', {
         templateUrl: 'partials/budget/edit',
         controller: 'BudgetEditCtrl'
       })

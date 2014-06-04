@@ -42,7 +42,7 @@
 
   <table class="table table-bordered table-striped">
   	<tr ng-repeat="balance in balances.payload">
-      <td>{{balance.date | date : 'dd/MM/yyyy'}}</td>
+      <td  class="col-xs-2">{{balance.date | date : 'dd/MM/yyyy'}}</td>
   		<td>
         <div class="pull-right">
           <span class="badge badge-default" ng-style="{'background-color' : getColorForTag(tag)}" ng-repeat="tag in balance.tags track by $index">{{tag}}</span>
@@ -50,8 +50,8 @@
 
         {{balance.description}}
       </td>
-  		<td><div class="pull-right">{{balance.amount | number:2}} EUR</div></td>
-  		<td>
+  		<td  class="col-xs-2"><div class="pull-right">{{balance.amount | number:2}} EUR</div></td>
+  		<td class="col-xs-2">
   			<div class="pull-right btn-group">
         <a class="btn btn-xs btn-default" href="#/entry/edit/{{balance._id}}">edit</a>
   			<a class="btn btn-xs btn-default btn-danger" ng-click="remove(balance._id)">Delete</a>
@@ -68,14 +68,27 @@
   <div  class="col-sm-4">
     <h1>Budget</h1>
       <table class="table table-bordered table-striped">
-        <tr ng-repeat ="(name, budget) in budgets">
+        <tr ng-repeat ="(name, budget) in budgetsComputed">
           <td>
             <span class="badge badge-default" ng-style="{'background-color' : getColorForTag(name)}"> {{name}}
             </span>
             </td>
-          <td style="text-align:right">{{budget | number: 2}}EUR</td>
+          <td style="text-align:right">{{budget.prevision | number: 2}}EUR</td>
+          <td style="text-align:right">{{budget.consumed | number: 2}}EUR</td>
+          <td class="col-sm-3">
+              <div class="progress">
+                      <div class="progress-bar" ng-class="getClassFor(budget)" role="progressbar" style="width: {{getPercentFor(budget)}}%;">
+                  <span class="sr-only">60% Complete</span>
+                </div>
+                </div>
+
+          </td>
         </tr>
       </table>
+
+      <a class="btn btn-default" href="#/budget/edit/{{currMonth}}/{{currYear}}">Editer le budget</a>
+      <a class="btn btn-default" href="#/budget/view/{{currMonth}}/{{currYear}}">Voir en grand</a>
+
   </div>
  
 </div>

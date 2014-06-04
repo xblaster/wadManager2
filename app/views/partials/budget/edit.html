@@ -1,1 +1,22 @@
-<p>This is the budget/edit view.</p>
+<div class="container">
+<table class="table">
+		<tr>
+			<th>Intitulé</th>
+			<th>Montant</th>
+			<th>Action</th>
+		</tr>
+		<tr ng-repeat="budgetLine in budgets.content"> 
+			<td><input type="text" ng-model="budgetLine.name"/></td>
+			</td>
+			<td>
+				<input type="text" ng-model="budgetLine.value"/>
+			</td>
+			<td><a ng-click="removeLine($index)" class="btn btn-danger">
+				<span class="glyphicon glyphicon-minus"></span>
+			</a></td>
+		</tr>
+	</table>
+
+<a ng-click="addBudgetLine()" class="btn btn-default">Ajouter</a>
+<a ng-click="save(budgets)" class="btn btn-primary">Sauvegarder</a>
+</div>

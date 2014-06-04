@@ -13,25 +13,37 @@ angular.module('v9App')
         $scope.currMonth = $routeParams.month;
     }
     
+    //init vars
     $scope.tagsColor = [];
+    $scope.budgets = {content:[]};
+    $scope.balances = {};
+    $scope.balances.payload = [];
 
     $http.get('/params/get?name=tags').success(function(result) {
       $scope.tagsColor = result;
     });
 
+    
+    
+
+    //fetch budgets
+    $http.get('/budget/get?year='+$routeParams.year+'&month='+$routeParams.month).success(function(entry) {
+      if (!_.isEmpty(entry)) {
+          $scope.budgets = entry;
+          $scope.refreshBudget();
+      } 
+
+    });
+
     $scope.getColorForTag = function (tagName) {
-      console.log(tagName);
-      console.log($scope.tagsColor)
       var key;
       //damn this is dirt :\
        for (key in $scope.tagsColor) {
           var elt = $scope.tagsColor[key];
-          console.log(elt.name+"/"+tagName);
           if (elt.name === tagName) {
             return elt.color;
           }
        };
-       console.log("-----");
        return '#CCC';
     }
 
@@ -40,29 +52,36 @@ angular.module('v9App')
 
 
   	$scope.refresh = function() {
-  		//$http.get('/rest/balanceentry?sort=date').success(function(data) {
       BalanceService.get($scope.currYear,$scope.currMonth).success(function(data) {
       		$scope.balances = data;
-          $scope.refreshBudget(data.payload);
+          $scope.refreshBudget();
     	});	
   	}
 
-    $scope.refreshBudget = function (balances) {
+    $scope.refreshBudget = function () {
         var budgets = {};
 
-        _.each(balances, function(elt) {
+        //calculate consumed
+        _.each($scope.balances.payload, function(elt) {
 
           //console.log(elt);
             _.each(elt.tags, function(tag) {
               //console.log(tag);
-              budgets[tag] = budgets[tag]|| 0;
-
-              budgets[tag] = budgets[tag] + elt.amount;              
+              budgets[tag] = budgets[tag]|| {prevision: 0, consumed:0};
+              budgets[tag].description = elt.description;
+              budgets[tag].consumed = budgets[tag].consumed + elt.amount;              
 
             });
         })
 
-        $scope.budgets = budgets;
+         _.each($scope.budgets.content, function(elt) {
+            var tag = elt.name;
+          //console.log(elt);
+            budgets[tag] = budgets[tag]|| {prevision: 0, consumed:0};            
+            budgets[tag].prevision = elt.value;
+        })
+
+        $scope.budgetsComputed = budgets;
     }
 
     
@@ -71,6 +90,31 @@ angular.module('v9App')
 		$http.delete('/rest/balanceentry/'+id).success(function(data) {
       		$scope.refresh();
     	});    	
+    }
+
+    $scope.getPercentFor = function (budget) {
+       var prev = Math.abs(budget.prevision);
+       var consumed = Math.abs(budget.consumed);
+
+       var res = consumed*100/prev;
+
+       if (res > 100) {
+        return 100;
+       }
+       return res;
+    }
+
+    $scope.getClassFor = function(budget) {
+      var percent = $scope.getPercentFor(budget);
+
+     
+
+      if (percent > 85) {
+         return {'progress-bar-danger' : 1};
+      } 
+       if (percent > 70) {
+         return {'progress-bar-warning' : 1};
+      } 
     }
 
     $scope.refresh();

@@ -1,0 +1,26 @@
+<div style="padding: 2em">
+
+  
+    <h1>Budget</h1>
+      <table class="table table-bordered table-striped">
+        <tr ng-repeat ="(name, budget) in budgetsComputed">
+          <td>
+            <span class="badge badge-default" ng-style="{'background-color' : getColorForTag(name)}"> {{name}}
+            </span>
+            </td>
+          <td style="text-align:right">{{budget.prevision | number: 2}}EUR</td>
+          <td style="text-align:right">{{budget.consumed | number: 2}}EUR</td>
+          <td class="col-sm-3">
+              <div class="progress">
+                      <div class="progress-bar" ng-class="getClassFor(budget)" role="progressbar" style="width: {{getPercentFor(budget)}}%;">
+                  <span class="sr-only">60% Complete</span>
+                </div>
+                </div>
+
+          </td>
+        </tr>
+      </table>
+
+      <a class="btn btn-default" href="#/budget/edit/{{currMonth}}/{{currYear}}">Editer le budget</a>
+
+  </div>
