@@ -17,6 +17,10 @@ angular.module('v9App', [
         templateUrl: 'partials/main',
         controller: 'MainCtrl'
       })
+      .when('/budget/synthese/:month/:year', {
+        templateUrl: 'partials/budget/synthese',
+        controller: 'MainCtrl'
+      })
       .when('/budget/view/:month/:year', {
         templateUrl: 'partials/budget/view',
         controller: 'MainCtrl'

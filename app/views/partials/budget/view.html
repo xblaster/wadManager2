@@ -15,7 +15,7 @@
           <th>Consommé</th>
           <th>%</th>
         </tr>
-        <tr ng-repeat-start ="(name, budget) in budgetsComputed.tags" ng-if="geInfoFor(name).inBudget">
+        <tr ng-repeat-start ="(name, budget) in budgetsComputed.tags" ng-if="budget.prevision">
           <td>
             <span class="badge badge-default" ng-style="{'background-color' : getColorForTag(name)}"> {{name}}
             </span>
@@ -36,7 +36,7 @@
           </td>
         </tr>
         <!-- detail -->
-        <tr ng-repeat-end ng-if="geInfoFor(name).inBudget && detailOn" style="border-bottom: 3px solid #888">
+        <tr ng-repeat-end ng-if="budget.prevision && detailOn" style="border-bottom: 3px solid #888">
           <td colspan="4">
 
             <table class="table">

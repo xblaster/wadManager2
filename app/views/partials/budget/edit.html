@@ -3,10 +3,17 @@
 		<tr>
 			<th>Intitulé</th>
 			<th>Montant</th>
+			<th>Credit/debit</th>
 			<th>Action</th>
 		</tr>
 		<tr ng-repeat="budgetLine in budgets.content"> 
 			<td><input type="text" ng-model="budgetLine.name"/></td>
+			</td>
+			<td>
+				<div class="btn-group">
+					<a ng-click="budgetLine.credit = true" class="btn" ng-class="{'btn-primary' : budgetLine.credit, 'btn-default': !budgetLine.credit}">Credit</a>
+					<a ng-click="budgetLine.credit = false" class="btn btn-default" ng-class="{'btn-primary' : !budgetLine.credit, 'btn-default': budgetLine.credit}">Debit</a>
+				</div>
 			</td>
 			<td>
 				<input type="text" ng-model="budgetLine.value"/>
@@ -17,6 +24,8 @@
 		</tr>
 	</table>
 
+
+<a class="btn btn-default" ng-click="getLatestBudget()">Reprendre le budget du mois precedent</a>
 <a ng-click="addBudgetLine()" class="btn btn-default">Ajouter</a>
 <a ng-click="save(budgets)" class="btn btn-primary">Sauvegarder</a>
 </div>

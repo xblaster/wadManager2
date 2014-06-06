@@ -3,14 +3,12 @@
 		<tr>
 			<th>Tag</th>
 			<th>Description</th>
-			<th>Visible dans le budget</th>
 			<th>Couleur</th>
 			<th>Actions</th>
 		</tr>
 		<tr ng-repeat="tag in tags"> 
 			<td><input type="text" ng-model="tag.name"/></td>
 			<td><textarea type="text" ng-model="tag.description"></textarea></td>
-			<th><input type="checkbox" ng-model="tag.inBudget"></input></th>
 			<td ng-style="{'background-color' : tag.color}">
 				<input colorpicker ng-model="tag.color" type="text">
 			</td>

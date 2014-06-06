@@ -11,6 +11,14 @@ angular.module('v9App')
   	 $scope.budgets.date = moment().year($routeParams.year).month($routeParams.month-1).day(1).format('YYYY/MM/DD');;
   	 $scope.budgets.content = [];
 
+     $scope.getLatestBudget = function() {
+        $http.get('/budget/get?year='+$routeParams.year+'&month='+($routeParams.month-1)).success(function(entry) {
+        console.log(entry);
+        if (!_.isEmpty(entry)) {
+            $scope.budgets = entry;
+          }
+       });
+     }
 
   	 $http.get('/budget/get?year='+$routeParams.year+'&month='+$routeParams.month).success(function(entry) {
   	 	console.log(entry);

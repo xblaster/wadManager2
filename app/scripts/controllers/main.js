@@ -74,7 +74,7 @@ angular.module('v9App')
 
         _.each(budgets.tags, function(value, key, list) {
             var tagInfo = $scope.geInfoFor(key);
-            if (tagInfo && tagInfo.inBudget) {
+            if (value.prevision) {
               if (value.consumed > 0 ) {
                  budgets.income+= value.consumed;
               } else {
@@ -89,6 +89,7 @@ angular.module('v9App')
             var tag = elt.name;
             budgets.tags[tag] = budgets.tags[tag]|| {prevision: 0, consumed:0};            
             budgets.tags[tag].prevision = Math.abs(elt.value);
+            budgets.tags[tag].credit = elt.credit;
         })
 
 
