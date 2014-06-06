@@ -68,27 +68,56 @@
   <div  class="col-sm-4">
     <h1>Budget</h1>
       <table class="table table-bordered table-striped">
-        <tr ng-repeat ="(name, budget) in budgetsComputed">
+        <tr>
+          <th>Nom</th>
+          <th>Prevision</th>
+          <th>Consommé</th>
+          <th>%</th>
+        </tr>
+        <tr ng-repeat ="(name, budget) in budgetsComputed" ng-if="geInfoFor(name).inBudget">
           <td>
             <span class="badge badge-default" ng-style="{'background-color' : getColorForTag(name)}"> {{name}}
             </span>
             </td>
-          <td style="text-align:right">{{budget.prevision | number: 2}}EUR</td>
+          <td style="text-align:right">
+            <span ng-if="budget.prevision">{{budget.prevision | number: 2}}EUR</span>
+          </td>
           <td style="text-align:right">{{budget.consumed | number: 2}}EUR</td>
           <td class="col-sm-3">
+
               <div class="progress" ng-if="budget.prevision">
                       <div class="progress-bar" ng-class="getClassFor(budget)" role="progressbar" style="width: {{getPercentFor(budget)}}%;">
-                        {{getPercentFor(budget) | number }}%
-                  <span class="sr-only">60% Complete</span>
+                      {{getPercentFor(budget) | number: 0 }}% 
                 </div>
                 </div>
+
 
           </td>
         </tr>
       </table>
+      <div class="btn-group">
+          <a class="btn btn-default" href="#/budget/edit/{{currMonth}}/{{currYear}}">Editer le budget</a>
+          <a class="btn btn-default" href="#/budget/view/{{currMonth}}/{{currYear}}">Zoom</a>
+        </div>  
+  
+    <hr/>
 
-      <a class="btn btn-default" href="#/budget/edit/{{currMonth}}/{{currYear}}">Editer le budget</a>
-      <a class="btn btn-default" href="#/budget/view/{{currMonth}}/{{currYear}}">Voir en grand</a>
+    <h1>Hors budget</h1>
+        <table class="table table-bordered table-striped">
+        <tr>
+          <th>Nom</th>
+          <th>Consommé</th>
+        </tr>
+        <tr ng-repeat ="(name, budget) in budgetsComputed" ng-if="!geInfoFor(name).inBudget">
+          <td>
+            <span class="badge badge-default" ng-style="{'background-color' : getColorForTag(name)}"> {{name}}
+            </span>
+            </td>
+          <td style="text-align:right">{{budget.consumed | number: 2}}EUR</td>
+        </tr>
+      </table>
+
+    
 
   </div>
  

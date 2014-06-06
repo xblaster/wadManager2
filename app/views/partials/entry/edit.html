@@ -19,7 +19,11 @@
 
    <div class="form-group">
     <label>Tags</label>
-    <input type="text" class="form-control" ng-model="entry.tags">
+    <!--<input type="text" class="form-control" ng-model="entry.tags">-->
+    <div class="btn-group">
+      <a class="btn btn-default" ng-class="{'strong-disable' : !isTagPresent(tag.name)}" ng-style="{'background-color': isTagPresent(tag.name)?tag.color:'#FFF' }" ng-repeat="tag in tagsInfo" ng-click="toggleTag(tag.name)">{{tag.name}}</a>
+    </div>
+
   </div>
 
   <div>

@@ -14,13 +14,15 @@ angular.module('v9App')
     }
     
     //init vars
-    $scope.tagsColor = [];
+    $scope.tagsInfo = {}; //info in tags
     $scope.budgets = {content:[]};
     $scope.balances = {};
     $scope.balances.payload = [];
 
     $http.get('/params/get?name=tags').success(function(result) {
-      $scope.tagsColor = result;
+      _.each(result, function(elt) {
+        $scope.tagsInfo[elt.name] = elt;
+      });     
     });
 
     
@@ -32,19 +34,17 @@ angular.module('v9App')
           $scope.budgets = entry;
           $scope.refreshBudget();
       } 
-
     });
 
+    $scope.geInfoFor = function(tagName) {
+      return $scope.tagsInfo[tagName];
+    }
+
     $scope.getColorForTag = function (tagName) {
-      var key;
-      //damn this is dirt :\
-       for (key in $scope.tagsColor) {
-          var elt = $scope.tagsColor[key];
-          if (elt.name === tagName) {
-            return elt.color;
-          }
-       };
-       return '#CCC';
+      var tag = $scope.tagsInfo[tagName];
+      if (tag) {
+        return tag.color;
+      }
     }
 
     $scope.months = _.range(1,13);
@@ -69,8 +69,7 @@ angular.module('v9App')
               //console.log(tag);
               budgets[tag] = budgets[tag]|| {prevision: 0, consumed:0};
               budgets[tag].description = elt.description;
-              budgets[tag].consumed = budgets[tag].consumed + Math.abs(elt.amount);              
-
+              budgets[tag].consumed = budgets[tag].consumed + elt.amount;              
             });
         })
 
@@ -106,9 +105,6 @@ angular.module('v9App')
 
     $scope.getClassFor = function(budget) {
       var percent = $scope.getPercentFor(budget);
-
-     
-
       if (percent > 85) {
          return {'progress-bar-danger' : 1};
       } 
