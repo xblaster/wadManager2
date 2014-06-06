@@ -60,25 +60,38 @@ angular.module('v9App')
 
     $scope.refreshBudget = function () {
         var budgets = {};
+        budgets.tags = {};
+        budgets.income = 0;
+        budgets.outcome = 0;
 
         //calculate consumed
         _.each($scope.balances.payload, function(elt) {
-
-          //console.log(elt);
             _.each(elt.tags, function(tag) {
-              //console.log(tag);
-              budgets[tag] = budgets[tag]|| {prevision: 0, consumed:0};
-              budgets[tag].description = elt.description;
-              budgets[tag].consumed = budgets[tag].consumed + elt.amount;              
+              budgets.tags[tag] = budgets.tags[tag] || {prevision: 0, consumed:0};              
+              budgets.tags[tag].consumed = budgets.tags[tag].consumed + elt.amount;              
             });
         })
 
+        _.each(budgets.tags, function(value, key, list) {
+            var tagInfo = $scope.geInfoFor(key);
+            if (tagInfo && tagInfo.inBudget) {
+              if (value.consumed > 0 ) {
+                 budgets.income+= value.consumed;
+              } else {
+                 budgets.outcome+= value.consumed;
+              }
+            }
+        });
+
+        budgets.balance = budgets.income + budgets.outcome;
+
          _.each($scope.budgets.content, function(elt) {
             var tag = elt.name;
-          //console.log(elt);
-            budgets[tag] = budgets[tag]|| {prevision: 0, consumed:0};            
-            budgets[tag].prevision = Math.abs(elt.value);
+            budgets.tags[tag] = budgets.tags[tag]|| {prevision: 0, consumed:0};            
+            budgets.tags[tag].prevision = Math.abs(elt.value);
         })
+
+
 
         $scope.budgetsComputed = budgets;
     }

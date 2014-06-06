@@ -1,7 +1,13 @@
 <div style="padding: 2em">
 
-  
-   <h1>Budget</h1>
+  <div class="btn-group pull-right">
+     <a class="btn btn-large btn-default" ng-click="detailOn = true">Afficher details</a>
+     <a class="btn btn-large btn-default" ng-click="detailOn = false">Cacher</a>
+    </div>
+
+     <h1>Budget</h1>
+    
+    
       <table class="table table-bordered table-striped">
         <tr>
           <th>Nom</th>
@@ -9,7 +15,7 @@
           <th>Consommé</th>
           <th>%</th>
         </tr>
-        <tr ng-repeat ="(name, budget) in budgetsComputed" ng-if="geInfoFor(name).inBudget">
+        <tr ng-repeat-start ="(name, budget) in budgetsComputed.tags" ng-if="geInfoFor(name).inBudget">
           <td>
             <span class="badge badge-default" ng-style="{'background-color' : getColorForTag(name)}"> {{name}}
             </span>
@@ -29,12 +35,57 @@
 
           </td>
         </tr>
+        <!-- detail -->
+        <tr ng-repeat-end ng-if="geInfoFor(name).inBudget && detailOn" style="border-bottom: 3px solid #888">
+          <td colspan="4">
+
+            <table class="table">
+                <tr ng-repeat="balance in balances.payload | filter:name">
+                  <td  class="col-xs-2">{{balance.date | date : 'dd/MM/yyyy'}}</td>
+                 
+                  <td>
+                  <div>
+                    <div ng-repeat="tag in balance.tags track by $index"><span class="badge badge-default" ng-style="{'background-color' : getColorForTag(tag)}" >{{tag}}</span></div>
+                  </div>
+                </td>
+                 <td>
+                    {{balance.description}}
+                  </td>
+                  <td  class="col-xs-2"><div class="pull-right">{{balance.amount | number:2}} EUR</div></td>
+                  <td class="col-xs-2">
+                    <div class="pull-right btn-group">
+                    <a class="btn btn-xs btn-default" href="#/entry/edit/{{balance._id}}">edit</a>
+                    <a class="btn btn-xs btn-default btn-danger" ng-click="remove(balance._id)">Delete</a>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+        
+          </td>
+        </tr>
+
+        <table class="table">
+          <tr>
+            <td>IN</td>
+            <td class="text-success" style="text-align:right">{{budgetsComputed.income | number: 2}}€</td>
+          </tr>
+          <tr>
+            <td>OUT</td>
+            <td class="text-danger" style="text-align:right">{{budgetsComputed.outcome | number: 2}}€</td>
+          </tr>
+
+          <tr>
+            <td>BALANCE</td>
+            <td style="text-align:right"><h3>{{budgetsComputed.balance | number: 2}}€</h3></td>
+          </tr> 
+
+        </table>
+
       </table>
       <div class="btn-group">
           <a class="btn btn-default" href="#/budget/edit/{{currMonth}}/{{currYear}}">Editer le budget</a>
           <a class="btn btn-default" href="#/budget/view/{{currMonth}}/{{currYear}}">Zoom</a>
         </div>  
-  
     
 
   </div>
