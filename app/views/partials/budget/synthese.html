@@ -5,6 +5,21 @@
      <a class="btn btn-large btn-default" ng-click="detailOn = false">Cacher</a>
     </div>
 
+    <div>
+        <ul class="pagination"  style="margin-bottom: 0">
+            <li ng-repeat="month in months" ng-class="{'active': month == currMonth}">
+                <a href="#/budget/synthese/{{month}}/{{currYear}}"> {{month}}</a>
+            </li>
+        </ul>
+
+
+        <ul class="pagination pull-right" style="margin-bottom: 0">
+            <li ng-repeat="year in years" ng-class="{'active': year == currYear}">
+                <a href="#/budget/synthese/{{currMonth}}/{{year}}"> {{year}}</a>
+            </li>
+        </ul>
+    </div>
+
 <div class="row">
 <div class="col-sm-6">
 
@@ -19,7 +34,7 @@
           <th>Consommé</th>
           <th>%</th>
         </tr>
-        <tr ng-repeat-start ="(name, budget) in budgetsComputed.tags" ng-if="budget.prevision && budget.credit">
+        <tr ng-repeat-start ="(name, budget) in budgetsComputed.tags" ng-if="budget.prevision && budget.credit" class="text-success">
           <td>
             <span class="badge badge-default" ng-style="{'background-color' : getColorForTag(name)}"> {{name}}
             </span>
@@ -44,7 +59,7 @@
           <td colspan="4">
 
             <table class="table">
-                <tr ng-repeat="balance in balances.payload | filter:name">
+                <tr ng-repeat="balance in balances.payload | filter:name" >
                   <td  class="col-xs-2">{{balance.date | date : 'dd/MM/yyyy'}}</td>
                  
                   <td>
@@ -55,7 +70,7 @@
                  <td>
                     {{balance.description}}
                   </td>
-                  <td  class="col-xs-2"><div class="pull-right">{{balance.amount | number:2}} EUR</div></td>
+                  <td  class="col-xs-2 "><div class="pull-right">{{balance.amount | number:2}} EUR</div></td>
                   <td class="col-xs-2">
                     <div class="pull-right btn-group">
                     <a class="btn btn-xs btn-default" href="#/entry/edit/{{balance._id}}">edit</a>
@@ -66,6 +81,14 @@
               </table>
         
           </td>
+        </tr>
+
+        <!-- total -->
+        <tr>
+           <td></td>
+            <td class="text-success" style="text-align: right"><h3>{{budgetsComputed.incomePrevision |number:2}}EUR</h3></td>
+            <td class="text-success" style="text-align: right"><h3>{{budgetsComputed.income |number:2}}EUR</h3></td>
+            <td></td>
         </tr>
 
       </table>
@@ -89,7 +112,7 @@
           <th>Consommé</th>
           <th>%</th>
         </tr>
-        <tr ng-repeat-start ="(name, budget) in budgetsComputed.tags" ng-if="budget.prevision && !budget.credit">
+        <tr ng-repeat-start ="(name, budget) in budgetsComputed.tags" ng-if="budget.prevision && !budget.credit" class="text-danger">
           <td>
             <span class="badge badge-default" ng-style="{'background-color' : getColorForTag(name)}"> {{name}}
             </span>
@@ -138,11 +161,34 @@
           </td>
         </tr>
 
+          <tr>
+              <td></td>
+              <td class="text-danger" style="text-align: right"><h3>{{budgetsComputed.outcomePrevision |number:2}}EUR</h3></td>
+              <td class="text-danger" style="text-align: right"><h3>{{budgetsComputed.outcome |number:2}}EUR</h3></td>
+              <td></td>
+          </tr>
+
+
       </table>
+
        
     
 
   </div>
+
+    <div class="col-sm-3">
+
+        <table class="table table-condensed">
+            <tr>
+                <td>Différence</td>
+                <td style="text-align: right"><h3>{{budgetsComputed.balance |number:2}}EUR</h3></td>
+            </tr>
+            <tr>
+                <td>Différence prévisionnel</td>
+                <td style="text-align: right"><h3>{{budgetsComputed.balancePrevision |number:2}}EUR</h3></td>
+            </tr>
+        </table>
+    </div>
 </div>
 
 

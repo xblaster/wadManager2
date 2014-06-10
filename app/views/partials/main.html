@@ -92,7 +92,7 @@
           <th>Consommé</th>
           <th>%</th>
         </tr>
-        <tr ng-repeat ="(name, budget) in budgetsComputed.tags" ng-if="budget.prevision">
+        <tr ng-repeat ="(name, budget) in budgetsComputed.tags" ng-if="budget.prevision" ng-class="{'text-success': budget.credit, 'text-danger': !budget.credit}">
           <td>
             <span class="badge badge-default" ng-style="{'background-color' : getColorForTag(name)}"> {{name}}
             </span>
@@ -132,7 +132,7 @@
       </table>
       <div class="btn-group">
           <a class="btn btn-default" href="#/budget/edit/{{currMonth}}/{{currYear}}">Editer le budget</a>
-          <a class="btn btn-default" href="#/budget/view/{{currMonth}}/{{currYear}}">Zoom</a>
+          <!--<a class="btn btn-default" href="#/budget/view/{{currMonth}}/{{currYear}}">Zoom</a>-->
           <a class="btn btn-default" href="#/budget/synthese/{{currMonth}}/{{currYear}}">Synthèse</a>
         </div>  
   

@@ -45,6 +45,10 @@ angular.module('v9App', [
         templateUrl: 'partials/budget/edit',
         controller: 'BudgetEditCtrl'
       })
+      .when('/overview', {
+        templateUrl: 'partials/overview',
+        controller: 'OverviewCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

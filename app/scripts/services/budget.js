@@ -25,7 +25,12 @@ angular.module('v9App')
         _.each(budgetsRef.content, function(elt) {
             var tag = elt.name;
             budgets.tags[tag] = budgets.tags[tag]|| {prevision: 0, consumed:0};
-            budgets.tags[tag].prevision = Math.abs(elt.value);
+            if (elt.credit) {
+                budgets.tags[tag].prevision = Math.abs(elt.value);
+            } else {
+                budgets.tags[tag].prevision = -Math.abs(elt.value);
+            }
+
             budgets.tags[tag].credit = elt.credit;
         });
 
@@ -44,6 +49,7 @@ angular.module('v9App')
         });
 
         budgets.balance = budgets.income + budgets.outcome;
+        budgets.balancePrevision = budgets.incomePrevision + budgets.outcomePrevision;
 
 
 

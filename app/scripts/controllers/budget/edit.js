@@ -8,14 +8,19 @@ angular.module('v9App')
 
   	 //init budgets object
   	 $scope.budgets ={};
-  	 $scope.budgets.date = moment().year($routeParams.year).month($routeParams.month-1).day(1).format('YYYY/MM/DD');;
+  	 $scope.budgets.date = moment().year($routeParams.year).month($routeParams.month-1).day(12).format('YYYY/MM/DD');;
   	 $scope.budgets.content = [];
 
      $scope.getLatestBudget = function() {
         $http.get('/budget/get?year='+$routeParams.year+'&month='+($routeParams.month-1)).success(function(entry) {
         console.log(entry);
+
+        var id  = $scope.budgets._id;
+
         if (!_.isEmpty(entry)) {
             $scope.budgets = entry;
+            $scope.budgets.date = moment().year($routeParams.year).month($routeParams.month-1).day(12).format('YYYY/MM/DD');;
+            $scope.budgets._id = id;
           }
        });
      }
@@ -24,10 +29,11 @@ angular.module('v9App')
   	 	console.log(entry);
   	 	if (!_.isEmpty(entry)) {
 	      	$scope.budgets = entry;
+
       	}
      });
 
-     $scope.save = function(budgets) {	
+     $scope.save = function(budgets) {
      	$scope.saveInProgress = true;
 		$http.post('/budget/save', budgets).success(function() {
       		$scope.saveInProgress = false;
