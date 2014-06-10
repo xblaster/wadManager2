@@ -7,6 +7,7 @@ angular.module('v9App')
     $http.get('/rest/balanceentry/'+$routeParams.entryId).success(function(entry) {
       $scope.entry = entry.payload;
       $scope.entry.date = moment($scope.entry.date).format('YYYY/MM/DD');
+      $scope.entry.realDate = moment($scope.entry.realDate).format('YYYY/MM/DD');
       /*$scope.entry.tags =  _.reduce($scope.entry.tags, function(memo, num){ return memo +","+num; }, "")
           .replace(",",""); //Remove the first ","*/
     });

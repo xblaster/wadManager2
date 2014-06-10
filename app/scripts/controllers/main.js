@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('v9App')
-  .controller('MainCtrl', function ($scope, $http, BalanceService, $routeParams, $location) {
+  .controller('MainCtrl', function ($scope, $http, BalanceService, $routeParams, $location, BudgetService) {
 
     $scope.currYear = moment().get('year');
     $scope.currMonth = moment().get('month');
@@ -24,9 +24,6 @@ angular.module('v9App')
         $scope.tagsInfo[elt.name] = elt;
       });     
     });
-
-    
-    
 
     //fetch budgets
     $http.get('/budget/get?year='+$routeParams.year+'&month='+$routeParams.month).success(function(entry) {
@@ -52,57 +49,26 @@ angular.module('v9App')
 
 
   	$scope.refresh = function() {
+      $scope.isLoading = true;
       BalanceService.get($scope.currYear,$scope.currMonth).success(function(data) {
+            $scope.isLoading = false;
       		$scope.balances = data;
-          $scope.refreshBudget();
+            $scope.refreshBudget();
     	});	
   	}
 
     $scope.refreshBudget = function () {
-        var budgets = {};
-        budgets.tags = {};
-        budgets.income = 0;
-        budgets.outcome = 0;
-
-        //calculate consumed
-        _.each($scope.balances.payload, function(elt) {
-            _.each(elt.tags, function(tag) {
-              budgets.tags[tag] = budgets.tags[tag] || {prevision: 0, consumed:0};              
-              budgets.tags[tag].consumed = budgets.tags[tag].consumed + elt.amount;              
-            });
-        })
-
-        _.each(budgets.tags, function(value, key, list) {
-            var tagInfo = $scope.geInfoFor(key);
-            if (value.prevision) {
-              if (value.consumed > 0 ) {
-                 budgets.income+= value.consumed;
-              } else {
-                 budgets.outcome+= value.consumed;
-              }
-            }
-        });
-
-        budgets.balance = budgets.income + budgets.outcome;
-
-         _.each($scope.budgets.content, function(elt) {
-            var tag = elt.name;
-            budgets.tags[tag] = budgets.tags[tag]|| {prevision: 0, consumed:0};            
-            budgets.tags[tag].prevision = Math.abs(elt.value);
-            budgets.tags[tag].credit = elt.credit;
-        })
-
-
-
-        $scope.budgetsComputed = budgets;
+        $scope.budgetsComputed = BudgetService.getBudgetFor($scope.balances.payload, $scope.budgets);
     }
 
     
 
     $scope.remove = function(id) {
-		$http.delete('/rest/balanceentry/'+id).success(function(data) {
-      		$scope.refresh();
-    	});    	
+        if (confirm()) {
+            $http.delete('/rest/balanceentry/'+id).success(function(data) {
+                $scope.refresh();
+            });
+        }
     }
 
     $scope.getPercentFor = function (budget) {
@@ -112,7 +78,7 @@ angular.module('v9App')
        var res = consumed*100/prev;
 
        if (res > 100) {
-        return 100;
+        //return 100;
        }
        return res;
     }
@@ -127,6 +93,33 @@ angular.module('v9App')
       } 
     }
 
+    $scope.isTagPresent = function(entry, tag) {
+        return _.contains(entry.tags, tag);
+    }
+
+    $scope.toggleTag = function(entry, tag) {
+        if (_.contains(entry.tags, tag)) {
+            entry.tags = _.without(entry.tags, tag);
+        } else {
+            entry.tags.push(tag);
+        }
+
+        $scope.save(entry);
+    }
+
+    $scope.isEntryValid = function(entry) {
+        return (entry.tags.length >= 2)
+    }
+
+    $scope.save = function(elt) {
+        $http.post('/entry/save', elt).success(function() {
+            $scope.refreshBudget();
+        });
+
+
+    }
+
     $scope.refresh();
  
   });
+
