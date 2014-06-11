@@ -108,7 +108,7 @@ angular.module('v9App')
     }
 
     $scope.isEntryValid = function(entry) {
-        return (entry.tags.length >= 2)
+        return (entry.tags.length >= 1)
     }
 
     $scope.save = function(elt) {

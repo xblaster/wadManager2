@@ -10,6 +10,10 @@ angular.module('v9App')
       'title': 'parametres',
       'link': '#/settings'
     },
+        {
+            'title': 'overview',
+            'link': '#/overview'
+        },
     {
       'title': 'importer EXL',
       'link': '#/upload'

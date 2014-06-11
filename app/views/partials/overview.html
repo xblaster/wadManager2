@@ -1,1 +1,15 @@
-<p>This is the overview view.</p>
+<div style="overflow: scroll" >
+<div style="width: 200%">
+<div ng-repeat="(key, budget) in computedBudgets" class="col-xs-2">
+    <h1>{{key}}</h1>
+    <table class="table">
+        <tr ng-repeat="(tagName, tagContent) in budget.tags">
+            <td>{{tagName}}</td>
+            <td>{{tagContent.consumed}}</td>
+        </tr>
+
+    </table>
+
+</div>
+</div>
+</div>

@@ -37,8 +37,25 @@ require('./lib/config/dummydata');
 // Setup Express
 var app = express();
 
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use('/rest', mers({uri: config.mongo.uri}).rest());
-app.use(busboy()); 
+app.use(busboy());
+
+app.use(function(req, res, next) {
+    var auth = require('basic-auth');
+    var user = auth(req);
+
+    if (user === undefined || user['name'] !== 'wadmanager' || user['pass'] !== 'wadmanager2014') {
+        res.statusCode = 401;
+        res.setHeader('WWW-Authenticate', 'Basic realm="MyRealmName"');
+        res.end('Unauthorized');
+    } else {
+        next();
+    }
+});
+
 
 require('./lib/config/express')(app);
 require('./lib/routes')(app);

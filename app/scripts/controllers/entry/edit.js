@@ -3,6 +3,9 @@
 angular.module('v9App')
   .controller('EntryEditCtrl', function ($scope, $http, $window, $routeParams) {
 
+  $scope.entry = {};
+  $scope.entry.tags = [];
+
   if ($routeParams.entryId) {
     $http.get('/rest/balanceentry/'+$routeParams.entryId).success(function(entry) {
       $scope.entry = entry.payload;

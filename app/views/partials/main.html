@@ -54,7 +54,11 @@
       <td  class="col-xs-2">{{balance.date | date : 'dd/MM/yyyy'}}</td>
 
   		<td>
+            <span class="badge badge-default" ng-style="{'background-color': tagsInfo[tag].color }" ng-repeat="tag in balance.tagsOrig">{{tag}}</span>
         {{balance.description}}
+
+
+
         <p class="text-muted" ng-if="balance.note">{{balance.note}}</p>
       </td>
     
