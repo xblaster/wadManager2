@@ -74,7 +74,7 @@
   	</tr>
     <tr ng-repeat-end style="border-bottom: 2px solid #CCC"  ng-class="{'entry-valid': isEntryValid(balance)}">
        <td colspan="5">
-        <div class="btn-group pull-right">
+        <div class=" pull-right">
             <a class="btn btn-default btn-xs" ng-class="{'strong-disable' : !isTagPresent(balance,tag.name)}" ng-style="{'background-color': isTagPresent(balance,tag.name)?tag.color:'#FFF' }" ng-repeat="tag in tagsInfo" ng-click="toggleTag(balance, tag.name)">{{tag.name}}</a>
         </div>
        </td>

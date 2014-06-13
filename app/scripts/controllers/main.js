@@ -4,7 +4,7 @@ angular.module('v9App')
   .controller('MainCtrl', function ($scope, $http, BalanceService, $routeParams, $location, BudgetService) {
 
     $scope.currYear = moment().get('year');
-    $scope.currMonth = moment().get('month');
+    $scope.currMonth = moment().get('month')+1;
 
     if (!$routeParams.year) {
       $location.path( "/view/"+$scope.currMonth+"/"+$scope.currYear );
