@@ -92,8 +92,8 @@
       <table class="table table-bordered table-striped  table-condensed">
         <tr>
           <th>Nom</th>
-          <th>Prevision</th>
-          <th>Consommé</th>
+          <th class="transparent">Prevision</th>
+          <th>Budget</th>
           <th>%</th>
         </tr>
         <tr ng-repeat ="(name, budget) in budgetsComputed.tags" ng-if="budget.prevision" ng-class="{'text-success': budget.credit, 'text-danger': !budget.credit}">
@@ -101,7 +101,7 @@
             <span class="badge badge-default" ng-style="{'background-color' : getColorForTag(name)}"> {{name}}
             </span>
             </td>
-          <td style="text-align:right">
+          <td style="text-align:right" class="transparent">
             <span ng-if="budget.prevision">{{budget.prevision | number: 2}}EUR</span>
           </td>
           <td style="text-align:right">{{budget.consumed | number: 2}}EUR</td>
@@ -127,7 +127,7 @@
           </tr>
 
           <tr>
-            <td>BALANCE</td>
+            <td>SOLDE</td>
             <td style="text-align:right"><h3>{{budgetsComputed.balance | number: 2}}€</h3></td>
           </tr> 
 

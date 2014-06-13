@@ -85,7 +85,13 @@ angular.module('v9App')
 
     $scope.getClassFor = function(budget) {
       var percent = $scope.getPercentFor(budget);
-      if (percent > 85) {
+        console.log(budget)
+        if (budget.credit) {
+            if (percent >= 98) {
+                return {'progress-bar-success' : 1};
+            }
+        }
+      if (percent > 100) {
          return {'progress-bar-danger' : 1};
       } 
        if (percent > 70) {
