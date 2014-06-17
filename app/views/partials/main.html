@@ -1,164 +1,67 @@
 <div style="padding: 2em">
 
   
-  <div class="col-sm-8" style="border-right: 1px solid #DDD; padding-right: 4em" >
+  <div class="col-sm-12"  >
 
   
-
-  <h1>Summary</h1>
-  <div>
-    <div>
-  <ul class="pagination"  style="margin-bottom: 0">
-    <li ng-repeat="month in months" ng-class="{'active': month == currMonth}">
-     <a href="#/view/{{month}}/{{currYear}}"> {{month}}</a>
-    </li>
-  </ul>
-
-
-  <ul class="pagination pull-right" style="margin-bottom: 0">
-    <li ng-repeat="year in years" ng-class="{'active': year == currYear}">
-     <a href="#/view/{{currMonth}}/{{year}}"> {{year}}</a>
-    </li>
-  </ul>
-    <!-- action bar -->
-    <br/>
-    <div class="pull-right">
-      <p>
-        <a class="btn btn-primary" href="#/entry/add">Add</a>
-      </p>
-    </div>
-    </div>
-  
-    
-
-  </div>
-
 
   <!-- balances -->
-
-  <div class="alert alert-info" ng-if="balances.payload.length ==0 && !isLoading">
-      Aucun mouvement pour ce mois :(. Zut alors !
+  <div class="alert alert-info" ng-if="data.payload.length ==0 && !isLoading">
+      Aucune personne :(. Zut alors !
   </div>
+
+     <div class=" center-block">
+      <div class="col-lg-7">
+          <div class="input-group">
+              <input type="text" class="form-control" ng-model="searchPattern">
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">Search</button>
+                  </span>
+          </div>
+      </div>
+     </div>
+      <div class="col-sm-12"  >
+      <hr/>
+      </div>
 
   <div class="alert alert-info" ng-if="isLoading">
           Chargement
   </div>
 
-  <table class="table table-bordered table-condensed">
-  	<tr ng-repeat-start="balance in balances.payload" ng-class="{'entry-valid': isEntryValid(balance)}">
-        <td>
-           <span ng-show="isEntryValid(balance)" class="text-success glyphicon glyphicon-ok">
-
-           </span>
-        </td>
-      <td  class="col-xs-2">{{balance.date | date : 'dd/MM/yyyy'}}</td>
+  <table class="table table-bordered table-condensed table-striped">
+    <tr>
+        <th>
+             Nom
+        </th>
+        <th>
+            Prénom
+        </th>
+        <th>Projects</th>
+        <th>Actions</th>
+    </tr>
+  	<tr ng-repeat="person in data.payload | filter : searchPattern">
 
   		<td>
-            <span class="badge badge-default" ng-style="{'background-color': tagsInfo[tag].color }" ng-repeat="tag in balance.tagsOrig">{{tag}}</span>
-        {{balance.description}}
-
-
-
-        <p class="text-muted" ng-if="balance.note">{{balance.note}}</p>
-      </td>
-    
-  		<td  class="col-xs-2"><div class="pull-right">{{balance.amount | number:2}} EUR</div></td>
-  		<td class="col-xs-2">
-  			<div class="pull-right btn-group">
-        <a class="btn btn-xs btn-default" href="#/entry/edit/{{balance._id}}">edit</a>
-  			<a class="btn btn-xs btn-default btn-danger" ng-click="remove(balance._id)">Delete</a>
-  			</div>
-
-
+            {{person.firstName}}
   		</td>
+        <td>
+            {{person.lastName}}
+        </td>
+        <td>
+            <span class="badge badge-default" ng-repeat="project in person.projects">{{project.name}}</span>
+        </td>
+        <td>
+            <div class="btn btn-group">
+                <a class="btn btn-default btn-xs" href="#person/edit/{{person._id}}">Editer</a>
+                <a class="btn btn-danger btn-xs" ng-click="removePerson(person._id)">Supprimer</a>
+            </div>
+        </td>
   	</tr>
-    <tr ng-repeat-end style="border-bottom: 2px solid #CCC"  ng-class="{'entry-valid': isEntryValid(balance)}">
-       <td colspan="5">
-        <div class=" pull-right">
-            <a class="btn btn-default btn-xs" ng-class="{'strong-disable' : !isTagPresent(balance,tag.name)}" ng-style="{'background-color': isTagPresent(balance,tag.name)?tag.color:'#FFF' }" ng-repeat="tag in tagsInfo" ng-click="toggleTag(balance, tag.name)">{{tag.name}}</a>
-        </div>
-       </td>
-    </tr>
+
   </table>
 
+  <a href="#/person/add" class="btn btn-primary btn-lg">Ajouter une personne</a>
+
   
-  
-  </div>
-
-
-  <div  class="col-sm-4">
-    <h1>Budget</h1>
-
-      <table class="table table-bordered table-striped  table-condensed">
-        <tr>
-          <th>Nom</th>
-          <th class="transparent">Prevision</th>
-          <th>Budget</th>
-          <th>%</th>
-        </tr>
-        <tr ng-repeat ="(name, budget) in budgetsComputed.tags" ng-if="budget.prevision" ng-class="{'text-success': budget.credit, 'text-danger': !budget.credit}">
-          <td>
-            <span class="badge badge-default" ng-style="{'background-color' : getColorForTag(name)}"> {{name}}
-            </span>
-            </td>
-          <td style="text-align:right" class="transparent">
-            <span ng-if="budget.prevision">{{budget.prevision | number: 2}}EUR</span>
-          </td>
-          <td style="text-align:right">{{budget.consumed | number: 2}}EUR</td>
-          <td class="col-sm-3">
-
-              <div class="progress" ng-if="budget.prevision">
-                      <div class="progress-bar" ng-class="getClassFor(budget)" role="progressbar" style="width: {{getPercentFor(budget)}}%;">
-                      {{getPercentFor(budget) | number: 0 }}% 
-                </div>
-                </div>
-
-
-          </td>
-        </tr>
-        <table class="table">
-          <tr>
-            <td>IN</td>
-            <td class="text-success" style="text-align:right">{{budgetsComputed.income | number: 2}}€</td>
-          </tr>
-          <tr>
-            <td>OUT</td>
-            <td class="text-danger" style="text-align:right">{{budgetsComputed.outcome | number: 2}}€</td>
-          </tr>
-
-          <tr>
-            <td>SOLDE</td>
-            <td style="text-align:right"><h3>{{budgetsComputed.balance | number: 2}}€</h3></td>
-          </tr> 
-
-        </table>
-
-      </table>
-      <div class="btn-group">
-          <a class="btn btn-default" href="#/budget/edit/{{currMonth}}/{{currYear}}">Editer le budget</a>
-          <!--<a class="btn btn-default" href="#/budget/view/{{currMonth}}/{{currYear}}">Zoom</a>-->
-          <a class="btn btn-default" href="#/budget/synthese/{{currMonth}}/{{currYear}}">Synthèse</a>
-        </div>  
-  
-    <hr/>
-
-    <h1>Hors budget</h1>
-        <table class="table table-bordered table-striped  table-condensed">
-        <tr>
-          <th>Nom</th>
-          <th>Consommé</th>
-        </tr>
-        <tr ng-repeat ="(name, budget) in budgetsComputed.tags" ng-if="!budget.prevision">
-          <td>
-            <span class="badge badge-default" ng-style="{'background-color' : getColorForTag(name)}"> {{name}}
-            </span>
-            </td>
-          <td style="text-align:right">{{budget.consumed | number: 2}}EUR</td>
-        </tr>
-      </table>
-
-
-
-  </div>
- 
 </div>
+    </div>

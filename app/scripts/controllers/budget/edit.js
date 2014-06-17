@@ -45,7 +45,5 @@ angular.module('v9App')
     	$scope.budgets.content.push({});
     }
 
-    $scope.removeLine = function(index) {
-    	 $scope.budgets.content.splice(index, 1);
-    }
+
   });

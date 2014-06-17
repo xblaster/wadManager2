@@ -49,6 +49,14 @@ angular.module('v9App', [
         templateUrl: 'partials/overview',
         controller: 'OverviewCtrl'
       })
+      .when('/person/add', {
+            templateUrl: 'partials/person/edit',
+            controller: 'PersonEditCtrl'
+      })
+      .when('/person/edit/:personId', {
+        templateUrl: 'partials/person/edit',
+        controller: 'PersonEditCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

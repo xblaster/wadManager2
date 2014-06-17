@@ -1,0 +1,58 @@
+<div class="container">
+
+    <form ng-submit="save(person)">
+
+        <h1>Signalétique</h1>
+
+        <div class="form-group">
+            <label>Nom</label>
+            <input type="text" class="form-control" ng-model="person.firstName">
+        </div>
+
+        <div class="form-group">
+            <label>Prénom</label>
+            <input type="text" class="form-control" ng-model="person.lastName">
+        </div>
+
+
+        <a class="pull-right btn btn-default" ng-click="addProject()">Ajouter un projet</a>
+
+        <h1>Projets</h1>
+        <div ng-repeat-start="project in person.projects" class="row">
+            <a class="pull-right btn-xs btn btn-danger" ng-click="removeProject($index)">supprimer {{project.name}}</a>
+
+
+            <div class="col-sm-6">
+
+                <div class="form-group " >
+                    <label>
+                        <span class="badge badge-default">{{$index+1}}</span>  Nom du projet
+                    </label>
+                    <input type="text" class="form-control" ng-model="project.name" placeholder="funny project">
+                </div>
+                <div class="form-group " >
+                    <label>Compétences sur le projet</label>
+                    <input type="text" class="form-control" ng-model="project.tags" placeholder="java, XSLT, angularJS">
+                </div>
+            </div>
+
+            <div class="col-sm-6" >
+                <label>Description</label>
+                <textarea class="form-control" rows="10" ng-model="project.description"></textarea>
+            </div>
+
+
+        </div>
+
+        <hr ng-repeat-end/>
+
+         <br/>
+        <br/>
+
+
+        <div>
+            <button type="submit" class="btn btn-large btn-primary">Sauvegarder</button>
+        </div>
+
+    </form>
+</div>
