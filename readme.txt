@@ -4,6 +4,11 @@ REQUIREMENTS
 * yo (npm install -g yo)
 * MogoDB up and running 
 
+LOGIN
+==================================
+login : wadmanager
+pass  : wadmanager2014
+
 INSTALL
 ==================================
 git clone this project (fufufufufu)
