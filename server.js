@@ -37,13 +37,10 @@ require('./lib/config/dummydata');
 // Setup Express
 var app = express();
 
-app.use(passport.initialize());
-app.use(passport.session());
-
 app.use('/rest', mers({uri: config.mongo.uri}).rest());
 app.use(busboy());
 
-app.use(function(req, res, next) {
+/*app.use(function(req, res, next) {
     var auth = require('basic-auth');
     var user = auth(req);
 
@@ -54,7 +51,7 @@ app.use(function(req, res, next) {
     } else {
         next();
     }
-});
+});*/
 
 
 require('./lib/config/express')(app);
