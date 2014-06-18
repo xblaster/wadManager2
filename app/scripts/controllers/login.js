@@ -7,6 +7,6 @@ angular.module('v9App')
     });
 
     $scope.login = function() {
-        $location.path('/');
+        $location.path('/main');
     }
   });

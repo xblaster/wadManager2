@@ -9,7 +9,7 @@ angular.module('v9App', [
 ])
   .config(function ($routeProvider, $locationProvider) {
     $routeProvider
-      .when('/', {
+      .when('/main', {
         templateUrl: 'partials/main',
         controller: 'MainCtrl'
       })
