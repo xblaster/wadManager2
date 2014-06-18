@@ -3,6 +3,8 @@
 angular.module('v9App')
   .controller('MainCtrl', function ($scope, $http, BalanceService, $routeParams, $location) {
 
+    $scope.moment = moment;
+
     //fetch persons
     $scope.refresh = function() {
         $http.get('/rest/person/').success(function(data) {

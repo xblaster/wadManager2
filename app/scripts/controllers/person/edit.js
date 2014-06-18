@@ -3,6 +3,9 @@
 angular.module('v9App')
   .controller('PersonEditCtrl', function ($scope, $http, $routeParams, $window) {
 
+
+        $scope.tab = 'banc';
+        $scope.moment = moment;
         $scope.person = {};
         $scope.person.projects = $scope.person.projects || [];
 

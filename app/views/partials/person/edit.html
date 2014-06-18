@@ -1,58 +1,130 @@
 <div class="container">
 
-    <form ng-submit="save(person)">
 
-        <h1>Signalétique</h1>
+    <div class="row">
 
-        <div class="form-group">
-            <label>Nom</label>
-            <input type="text" class="form-control" ng-model="person.firstName">
-        </div>
-
-        <div class="form-group">
-            <label>Prénom</label>
-            <input type="text" class="form-control" ng-model="person.lastName">
-        </div>
-
-
-        <a class="pull-right btn btn-default" ng-click="addProject()">Ajouter un projet</a>
-
-        <h1>Projets</h1>
-        <div ng-repeat-start="project in person.projects" class="row">
-            <a class="pull-right btn-xs btn btn-danger" ng-click="removeProject($index)">supprimer {{project.name}}</a>
-
-
-            <div class="col-sm-6">
-
-                <div class="form-group " >
-                    <label>
-                        <span class="badge badge-default">{{$index+1}}</span>  Nom du projet
-                    </label>
-                    <input type="text" class="form-control" ng-model="project.name" placeholder="funny project">
+        <div class="col-xs-6">
+            <div class="panel panel-info">
+            <div class="panel-heading">
+                Signalétique
+            </div>
+                <div class="panel-body">
+                <b>
+                    {{person.firstName}} {{person.lastName}}
+                </b>
+                <p>
+                    <span class="fa fa-map-marker"></span> Adresse:<br/>{{person.content.address}}<br/>
+                    {{person.content.city}}<br/>
+                    Luxembourg
+                </p>
+                <p>
+                    <span class="fa fa-qrcode"></span> <span style="font-family: monospace">{{person.content.cli_number}}</span>
+                </p>
                 </div>
-                <div class="form-group " >
-                    <label>Compétences sur le projet</label>
-                    <input type="text" class="form-control" ng-model="project.tags" placeholder="java, XSLT, angularJS">
+
+            </div>
+        </div>
+
+        <div class="col-xs-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Titulaires
+                </div>
+                <div class="panel-body">
+                    <div ng-repeat="titulaire in person.content.titulaires">
+                    <div class="pull-right">
+                        Rating: <span class="fa fa-star"></span>
+                    </div>
+                    <b>
+                        {{titulaire.firstName}} {{titulaire.lastName}}
+                    </b>
+                    <p>
+                        {{titulaire.birthday | date: 'dd/MM/yyyy'}}
+                    </p>
+                      <hr ng-show="!$last"/>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+    <div>
+
+        <ul class="nav nav-tabs">
+            <li ng-class="{'active': tab=='banc'}">
+                    <a ng-click="tab = 'banc'" >
+                           Produits bancaires  <span class="badge badge-default">{{person.content.products.length}}</span>
+                    </a>
+            </li>
+            <li ng-class="{'active': tab=='contracts'}">
+                <a ng-click="tab = 'contracts'">
+                    Contracts <span class="badge badge-default">2</span>
+                </a>
+            </li>
+            <li ng-class="{'active': tab=='visit_report'}">
+                <a ng-click="tab = 'visit_report'">
+                    Rapport de visite <span class="badge badge-default">{{person.content.visites.length}}</span>
+                </a>
+            </li>
+
+        </ul>
+
+        <!-- produits bancaire -->
+        <table class="table table-stripped table-bordered table-striped" ng-show="tab == 'banc'">
+            <tr>
+                <th>Produit</th>
+                <th>N° Produit</th>
+                <th>Solde Actuel</th>
+                <th>Credit ouvert</th>
+                <th>Blocage</th>
+            </tr>
+            <tr ng-repeat="product in person.content.products | orderBy: 'name' ">
+                <td>{{product.name}}</td>
+                <td>{{product.number}}</td>
+                <td><span class="pull-right">{{product.solde | number: 2}}€</span></td>
+                <td><span class="pull-right">{{0 | number: 2}}€</span></td>
+                <td><span class="fa fa-times"></span></td>
+            </tr>
+        </table>
+
+        <!-- rapport de visite -->
+        <div ng-if="tab == 'visit_report'" >
+            <div class="row" style="margin-top: 2em; margin-bottom: 2em">
+            <div class="col-xs-12">
+                <a class="pull-right btn btn-lg btn-primary">Ajouter un rapport de visite</a>
+            </div>
+            </div>
+            <div class="row">
+            <div class="media" ng-repeat="visit in person.content.visites |orderBy :'date' : true">
+
+                <div class="pull-left col-xs-1" style="margin-left: 1em">
+                    <span class="text-info">{{visit.date | date: 'dd/MM/yyyy'}}<br/>
+                    <span class="small">{{moment(visit.date).fromNow()}}</span>
+                    </span>
+
+
+                </div>
+                <div class="media-body col-xs-9">
+                    <h4 class="media-heading">Media heading</h4>
+                    {{visit.content}}
+                    <hr/>
                 </div>
             </div>
-
-            <div class="col-sm-6" >
-                <label>Description</label>
-                <textarea class="form-control" rows="10" ng-model="project.description"></textarea>
             </div>
-
-
         </div>
 
-        <hr ng-repeat-end/>
+    </div>
 
-         <br/>
-        <br/>
-
+    <!--<form ng-submit="save(person)">
 
         <div>
             <button type="submit" class="btn btn-large btn-primary">Sauvegarder</button>
         </div>
 
-    </form>
+    </form>-->
 </div>

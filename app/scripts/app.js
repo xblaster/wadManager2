@@ -57,8 +57,12 @@ angular.module('v9App', [
         templateUrl: 'partials/person/edit',
         controller: 'PersonEditCtrl'
       })
+      .when('/login', {
+        templateUrl: 'partials/login',
+        controller: 'LoginCtrl'
+      })
       .otherwise({
-        redirectTo: '/'
+        redirectTo: '/login'
       });
       
     /*$locationProvider.html5Mode(true);*/

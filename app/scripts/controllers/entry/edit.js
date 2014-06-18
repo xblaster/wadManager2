@@ -3,6 +3,7 @@
 angular.module('v9App')
   .controller('EntryEditCtrl', function ($scope, $http, $window, $routeParams) {
 
+
   $scope.entry = {};
   $scope.entry.tags = [];
 

@@ -1,7 +1,7 @@
-<div style="padding: 2em">
+<div style="padding: 2em" class="container">
 
   
-  <div class="col-sm-12"  >
+  <div class="col-sm-12">
 
   
 
@@ -11,7 +11,7 @@
   </div>
 
      <div class=" center-block">
-      <div class="col-lg-7">
+      <div>
           <div class="input-group">
               <input type="text" class="form-control" ng-model="searchPattern">
                   <span class="input-group-btn">
@@ -20,7 +20,7 @@
           </div>
       </div>
      </div>
-      <div class="col-sm-12"  >
+      <div class="col-sm-12">
       <hr/>
       </div>
 
@@ -28,39 +28,46 @@
           Chargement
   </div>
 
-  <table class="table table-bordered table-condensed table-striped">
+  <table class="table table-bordered table-striped table-hover">
     <tr>
         <th>
-             Nom
+             N°Client
         </th>
         <th>
             Prénom
         </th>
-        <th>Projects</th>
+        <th>Date de naissance</th>
+        <th>Pays</th>
         <th>Actions</th>
     </tr>
-  	<tr ng-repeat="person in data.payload | filter : searchPattern">
+  	<tr ng-repeat="person in data.payload | orderBy: 'lastName' |  filter : searchPattern">
 
   		<td>
-            {{person.firstName}}
+            <span style="font-family: monospace">{{person.content.cli_number}}</span>
+
   		</td>
         <td>
+            {{person.firstName}}
             {{person.lastName}}
         </td>
+
         <td>
-            <span class="badge badge-default" ng-repeat="project in person.projects">{{project.name}}</span>
+            {{person.birthday | date: 'dd/MM/yyyy'}} <span class="text-muted">(<b>{{ moment().diff(moment(person.birthday),'years')}}</b>)</span>
         </td>
         <td>
-            <div class="btn btn-group">
-                <a class="btn btn-default btn-xs" href="#person/edit/{{person._id}}">Editer</a>
-                <a class="btn btn-danger btn-xs" ng-click="removePerson(person._id)">Supprimer</a>
+            LU
+        </td>
+        <td>
+            <div class="btn btn-group pull-right">
+                <a class="btn btn-primary btn-xs" href="#person/edit/{{person._id}}">
+                    <span class="fa fa-search"></span>
+                </a>
+                <!--<a class="btn btn-danger btn-xs" ng-click="removePerson(person._id)">Supprimer</a>-->
             </div>
         </td>
   	</tr>
 
   </table>
-
-  <a href="#/person/add" class="btn btn-primary btn-lg">Ajouter une personne</a>
 
   
 </div>
