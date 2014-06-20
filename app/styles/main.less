@@ -71,6 +71,20 @@ body .table td {
 
 @visit-background: #EEE;
 
+.overable {
+  overflow: hidden;
+  .auto-hide {
+    opacity: 0;
+    .animate();
+  }
+
+  &:hover {
+    .auto-hide {
+      opacity: 1;
+    }
+  }
+}
+
 .visit {
 	position: relative;
 
