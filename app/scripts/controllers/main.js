@@ -5,6 +5,10 @@ angular.module('v9App')
 
     $scope.moment = moment;
 
+    $scope.addVisit = function(description) {
+        $scope.data.content.visites
+    }
+
     //fetch persons
     $scope.refresh = function() {
         $http.get('/rest/person/').success(function(data) {

@@ -62,3 +62,97 @@ body .table td {
   padding:2em;
 
 }
+
+.block {
+  background-color: #EEE;
+  padding: 1em;
+  border-radius: 1em;
+}
+
+@visit-background: #EEE;
+
+.visit {
+	position: relative;
+
+    &.infuture {
+      .content::before {
+        border-left: 4px dotted #eee;
+      }
+
+      .date, .content .block {
+        background-color: @brand-primary;
+        color: white;
+        .text-info {
+            color: white;
+        }
+      }
+
+      .date::before {
+        border-left: 7px solid @brand-primary;
+      }
+
+      .date, .icon, .content {
+        opacity: 0.7;
+      }
+      .icon {
+
+        box-shadow: 0 0 0 4px #CCC, inset 0 2px 0 rgba(0, 0, 0, 0.08), 0 3px 0 4px rgba(0, 0, 0, 0.05);
+      }
+    }
+
+    .icon {
+      position: absolute;
+      left: 7.85em;
+      top: 3.5em;
+      z-index: 3;
+      color: white;
+      min-height: 2.5em;
+      min-width: 2.5em;
+      border-radius: 100%;
+      padding-top: 0.5em;
+      box-shadow: 0 0 0 4px #ffffff, inset 0 2px 0 rgba(0, 0, 0, 0.08), 0 3px 0 4px rgba(0, 0, 0, 0.05);
+      text-align: center;
+    }
+
+	.date {
+		position: absolute;	
+		left: 0px;
+		top: 2.5em;	
+		background-color: @visit-background;
+		padding: 1em;
+		border-radius: 0.5em;
+	}
+
+	.date::before {
+		top: 24px;
+		left: 100%;
+		border-color: transparent;
+		border-left-color: @visit-background;
+		content: '';
+		position: absolute;
+		right: 100%;
+		height: 0;
+		width: 0;
+		border: 7px solid transparent;
+		border-left: 7px solid @visit-background;
+	}
+
+	.content, .add-content {
+	  position: relative;
+	  padding: 2em 0;
+	  margin-left: 11em;
+	}
+
+	.content::before {
+	  /* this is the vertical line */
+	  content: '';
+	  position: absolute;
+	  top: 0;
+	  left: -2.05em;
+	  height: 100%;
+	  width: 4px;
+	  /*background:  #EEE;*/
+      background-color: transparent;
+      border-left: 4px solid #eee;
+	}
+}
