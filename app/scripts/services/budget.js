@@ -22,6 +22,7 @@ angular.module('v9App')
             });
         })
 
+        
         _.each(budgetsRef.content, function(elt) {
             var tag = elt.name;
             budgets.tags[tag] = budgets.tags[tag]|| {prevision: 0, consumed:0};
@@ -44,6 +45,14 @@ angular.module('v9App')
                 } else {
                     budgets.outcomePrevision+= value.prevision;
                     budgets.outcome+= value.consumed;
+                }
+            } else {
+                if (value.consumed > 0) {
+                    budgets.income+= value.consumed;
+                    value.credit = true;
+                } else {
+                    budgets.outcome+= value.consumed;
+
                 }
             }
         });

@@ -34,7 +34,7 @@
           <th>Budget</th>
           <th>%</th>
         </tr>
-        <tr ng-repeat-start ="(name, budget) in budgetsComputed.tags" ng-if="budget.prevision && budget.credit" class="text-success">
+        <tr ng-repeat-start ="(name, budget) in budgetsComputed.tags" ng-if=" budget.credit" class="text-success">
           <td>
             <span class="badge badge-default" ng-style="{'background-color' : getColorForTag(name)}"> {{name}}
             </span>
@@ -112,7 +112,7 @@
           <th>Budget</th>
           <th>%</th>
         </tr>
-        <tr ng-repeat-start ="(name, budget) in budgetsComputed.tags" ng-if="budget.prevision && !budget.credit" class="text-danger">
+        <tr ng-repeat-start ="(name, budget) in budgetsComputed.tags" ng-if="!budget.credit" class="text-danger">
           <td>
             <span class="badge badge-default" ng-style="{'background-color' : getColorForTag(name)}"> {{name}}
             </span>

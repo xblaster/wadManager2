@@ -8,7 +8,8 @@ angular.module('v9App')
 
   	 //init budgets object
   	 $scope.budgets ={};
-  	 $scope.budgets.date = moment().year($routeParams.year).month($routeParams.month-1).day(12).format('YYYY/MM/DD');;
+  	 $scope.budgets.date = moment(new Date($routeParams.year,$routeParams.month-1,12)).format('YYYY/MM/DD');;
+     console.log($scope.budgets.date);
   	 $scope.budgets.content = [];
 
      $scope.getLatestBudget = function() {
