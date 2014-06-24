@@ -19,7 +19,16 @@
         </tr>
         <tr ng-repeat="tag in allTags">
             <td>{{tag}}</td>
-            <td ng-repeat="(key, budget) in computedBudgets">{{budget.tags[tag]}}</td>
+            <td ng-repeat="(key, budget) in computedBudgets" style="text-align: right">
+                <span ng-class="{'text-success': budget.tags[tag].credit, 'text-danger': !budget.tags[tag].credit} ">{{budget.tags[tag].consumed | number:2}}€</span>
+            </td>
+        </tr>
+        <tr>
+            <td>Solde</td>
+            <td ng-repeat="(key, budget) in computedBudgets" style="text-align: right">
+                {{budget.income | number:2}}€<br/>
+                {{budget.outcome| number:2}}€
+            </td>
         </tr>
     </table>
 </div>
