@@ -128,6 +128,20 @@ body .table td {
       text-align: center;
     }
 
+    &.visit-empire .block, &.visit-empire .date  {
+      background-color: #d9534f;
+      color: white;
+      .text-info {
+        color: white;
+      }
+
+
+    }
+
+  &.visit-empire .date::before {
+    border-left: 7px solid #d9534f;
+  }
+
 	.date {
 		position: absolute;	
 		left: 0px;
@@ -169,4 +183,5 @@ body .table td {
       background-color: transparent;
       border-left: 4px solid #eee;
 	}
+
 }
