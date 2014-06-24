@@ -78,7 +78,7 @@ angular.module('v9App')
 
 
 
-        console.log(budgets);
+        //console.log(budgets);
 
         return budgets;
 
