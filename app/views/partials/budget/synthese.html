@@ -55,7 +55,7 @@
           </td>
         </tr>
         <!-- detail -->
-        <tr ng-repeat-end ng-if="budget.prevision && detailOn && budget.credit" style="border-bottom: 3px solid #888">
+        <tr ng-repeat-end ng-if=" detailOn && budget.credit" style="border-bottom: 3px solid #888">
           <td colspan="4">
 
             <table class="table">
@@ -88,7 +88,7 @@
            <td></td>
             <td class="text-success transparent" style="text-align: right"><h3>{{budgetsComputed.incomePrevision |number:2}}EUR</h3></td>
             <td class="text-success" style="text-align: right"><h3>{{budgetsComputed.income |number:2}}EUR</h3></td>
-            <td class="text-success" style="text-align: right">Prévision a venir:<br/> {{budgetsComputed.incomePrevision - budgetsComputed.income |number:2 }}EUR</td>
+            <td class="text-success" style="text-align: right">Prévision a venir:<br/> {{budgetsComputed.incomePrediction |number:2 }}EUR</td>
         </tr>
 
       </table>
@@ -133,7 +133,7 @@
           </td>
         </tr>
         <!-- detail -->
-        <tr ng-repeat-end ng-if="budget.prevision && detailOn && !budget.credit" style="border-bottom: 3px solid #888">
+        <tr ng-repeat-end ng-if="detailOn && !budget.credit" style="border-bottom: 3px solid #888">
           <td colspan="4">
 
             <table class="table">
@@ -165,7 +165,7 @@
               <td></td>
               <td class="text-danger transparent" style="text-align: right"><h3>{{budgetsComputed.outcomePrevision |number:2}}EUR</h3></td>
               <td class="text-danger" style="text-align: right"><h3>{{budgetsComputed.outcome |number:2}}EUR</h3></td>
-              <td class="text-danger" style="text-align: right">Prévision a venir: {{budgetsComputed.outcomePrevision - budgetsComputed.outcome |number:2 }}EUR</td>
+              <td class="text-danger" style="text-align: right">Prévision a venir: {{budgetsComputed.outcomePrediction |number:2 }}EUR</td>
           </tr>
 
 
