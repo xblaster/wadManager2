@@ -20,7 +20,7 @@ angular.module('v9App')
 
         if (!_.isEmpty(entry)) {
             $scope.budgets = entry;
-            $scope.budgets.date = moment().year($routeParams.year).month($routeParams.month-1).day(12).format('YYYY/MM/DD');;
+            $scope.budgets.date = moment(new Date($routeParams.year,$routeParams.month-1,12)).format('YYYY/MM/DD');;
             $scope.budgets._id = id;
           }
        });

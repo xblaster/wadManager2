@@ -65,9 +65,10 @@
   		<td  class="col-xs-2"><div class="pull-right">{{balance.amount | number:2}} EUR</div></td>
   		<td class="col-xs-2">
   			<div class="pull-right btn-group">
-        <a class="btn btn-xs btn-default" href="#/entry/edit/{{balance._id}}">edit</a>
+             <a class="btn btn-xs btn-default" href="#/entry/edit/{{balance._id}}">edit</a>
   			<a class="btn btn-xs btn-default btn-danger" ng-click="remove(balance._id)">Delete</a>
   			</div>
+
 
 
   		</td>
@@ -76,7 +77,15 @@
        <td colspan="5">
         <div class=" pull-right">
             <a class="btn btn-default btn-xs" ng-class="{'strong-disable' : !isTagPresent(balance,tag.name)}" ng-style="{'background-color': isTagPresent(balance,tag.name)?tag.color:'#FFF' }" ng-repeat="tag in tagsInfo" ng-click="toggleTag(balance, tag.name)">{{tag.name}}</a>
+            <div ng-if="!balance.otherTag"><a class="btn btn-default btn-xs" ng-click="tagName = balance.tags[0]; onOtherTag(balance)">Autre</a>{{balance.tags[0]}}</div>
+
+
+            <div ng-if="balance.otherTag">
+                <input type="text" ng-model="tagName"/><a class="btn btn-default" ng-click="toggleTag(balance, tagName)">Ajouter</a>
+            </div>
+
         </div>
+
        </td>
     </tr>
   </table>

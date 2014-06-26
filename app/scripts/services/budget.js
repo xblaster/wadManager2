@@ -21,7 +21,6 @@ angular.module('v9App')
             _.each(elt.tags, function(tag) {
                 budgets.tags[tag] = budgets.tags[tag] || {prevision: 0, consumed:0};
                 budgets.tags[tag].consumed = budgets.tags[tag].consumed + elt.amount;
-
             });
         })
 
@@ -49,6 +48,9 @@ angular.module('v9App')
 
                     if (value.prevision > value.consumed) {
                         budgets.incomePrediction += (value.prevision - value.consumed);
+                        value.prediction = value.prevision;
+                    } else {
+                        value.prediction = value.consumed;
                     }
 
 
@@ -59,16 +61,17 @@ angular.module('v9App')
                     console.log(budgets);
                     if (value.prevision < value.consumed) {
                         budgets.outcomePrediction += (value.prevision - value.consumed);
+                        value.prediction = value.prevision;
+                    } else {
+                        value.prediction = value.consumed;
                     }
                 }
             } else {
-
                 if (value.consumed > 0) {
                     budgets.income+= value.consumed;
                     value.credit = true;
                 } else {
                     budgets.outcome+= value.consumed;
-
                 }
             }
         });

@@ -5,6 +5,7 @@ angular.module('v9App')
 
     $scope.currYear = moment().get('year');
     $scope.currMonth = moment().get('month')+1;
+        $scope._ = _;
 
     if (!$routeParams.year) {
       $location.path( "/view/"+$scope.currMonth+"/"+$scope.currYear );
@@ -99,18 +100,37 @@ angular.module('v9App')
       } 
     }
 
+    $scope.getUnionedTag = function(balance) {
+
+        var tags = angular.copy($scope.tagsInfo);
+
+        _.each(balance.tags, function(element, index, list) {
+            if (!tags[element]) {
+                tags.push({'name': element, 'color': '#FFF'});
+            }
+        });
+
+        return tags;
+    }
+
     $scope.isTagPresent = function(entry, tag) {
         return _.contains(entry.tags, tag);
     }
 
     $scope.toggleTag = function(entry, tag) {
+        entry.otherTag= false;
         if (_.contains(entry.tags, tag)) {
             entry.tags = _.without(entry.tags, tag);
         } else {
-            entry.tags.push(tag);
+            entry.tags = [tag];
+            //entry.tags.push(tag);
         }
 
         $scope.save(entry);
+    }
+
+    $scope.onOtherTag = function(entry) {
+        entry.otherTag= true;
     }
 
     $scope.isEntryValid = function(entry) {

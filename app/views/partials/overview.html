@@ -20,14 +20,24 @@
             <td>{{tag}}</td>
             <td ng-repeat="(key, budget) in computedBudgets" style="text-align: right">
                 <span ng-class="{'text-success': budget.tags[tag].credit, 'text-danger': !budget.tags[tag].credit} ">{{budget.tags[tag].displayVal | number:2}}€</span>
+                <!--<span>{{budget.tags[tag]}}</span>-->
                 <span class="text-muted small"><br/>{{budget.tags[tag].displayNote}}</span>
             </td>
         </tr>
         <tr>
             <td>Solde</td>
             <td ng-repeat="(key, budget) in computedBudgets" style="text-align: right">
-                {{budget.income | number:2}}€<br/>
-                {{budget.outcome| number:2}}€
+                <span class="text-success">{{budget.displayIncome | number:2}}€</span><br/>
+                <span class="text-danger">{{budget.displayOutcome| number:2}}€</span><br/>
+                {{budget.displayBalance | number:2}}€
+            </td>
+        </tr>
+
+        <tr>
+            <td>Total</td>
+            <td ng-repeat="(key, budget) in computedBudgets" style="text-align: right">
+                <span>{{budget.total | number:2}}€</span><br/>
+
             </td>
         </tr>
     </table>

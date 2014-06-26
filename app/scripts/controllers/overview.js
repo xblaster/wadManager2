@@ -53,12 +53,15 @@ angular.module('v9App')
 
         $scope.allTags = [];
 
+
+          var total = 0;
+
          _.each($scope.computedBudgets, function(value, key, list) {
             _.each(value.tags, function(value2, key2, list2) {
               $scope.allTags.push(key2);
             });
 
-            $scope.refreshPrevisionForBudget(key,value);
+            total = $scope.refreshPrevisionForBudget(key,value, total).total;
 
 
          }  );
@@ -67,8 +70,13 @@ angular.module('v9App')
         //console.log($scope.allTags);
       }
 
-      $scope.refreshPrevisionForBudget = function( key, budget) {
+      $scope.refreshPrevisionForBudget = function( key, budget, total) {
         console.log(key)
+
+        budget.displayIncome = 0;
+        budget.displayOutcome = 0;
+        budget.displayBalance = 0;
+
         _.each(budget.tags, function(value, key2, list) {
             //console.log(key > $scope.getSelectedMonth());
             //console.log(key+" > "+$scope.getSelectedMonth());
@@ -76,12 +84,32 @@ angular.module('v9App')
             if (key > $scope.getSelectedMonth()) {
               value.displayVal = value.prevision;
             } else if ( key == $scope.getSelectedMonth()) {
-              value.displayVal = -12;
-              value.displayNote = numberFilter(value.consumed,2)+" ("+numberFilter(value.prevision,2)+")";
+              if (value.prediction) {
+                  value.displayVal = value.prediction;
+                  value.displayNote = numberFilter(value.consumed,2)+" ( reste "+numberFilter((value.prevision-value.consumed),2)+")";
+              } else {
+                  value.displayVal = value.consumed;
+              }
+
+
             } else {
               value.displayVal = value.consumed;            
             }
+
+             if (value.displayVal > 0) {
+                 budget.displayIncome += value.displayVal;
+             } else {
+                 budget.displayOutcome += value.displayVal;
+             }
+
+             budget.displayBalance += value.displayVal;
+
+
+
+
         });
+
+        budget.total = total + budget.displayBalance;
 
         return budget;
       }
