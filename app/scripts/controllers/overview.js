@@ -11,7 +11,20 @@ angular.module('v9App')
 
       $scope.monthInProgress = moment().format('YYYY/MM');
 
+
      var past = momentCursor = moment().subtract('months', 4);
+
+     $http.get('/params/get?name=tags').success(function(result) {
+            $scope.tagsInfoList = [];
+            $scope.tagsInfo = {};
+            _.each(result, function(elt) {
+                $scope.tagsInfo[elt.name] = elt;
+                $scope.tagsInfoList.push(elt.name);
+            });
+
+            $scope.refreshOverall();
+     });
+
 
       $scope.setSelectedMonth = function(selectedMonth) {
         $scope.monthInProgress = selectedMonth;
@@ -66,7 +79,19 @@ angular.module('v9App')
 
          }  );
 
-         $scope.allTags= _.uniq($scope.allTags);
+          //_.sortBy($scope.allTags, function(num){ return Math.sin(num); });
+        $scope.allTags = _.uniq($scope.allTags);
+
+        console.log($scope.tagsInfoList);
+
+        $scope.normalTag = _.filter($scope.allTags, function(tag) {
+            return _.contains($scope.tagsInfoList, tag);
+        })
+
+        $scope.extraTag = _.filter($scope.allTags, function(tag) {
+              return !_.contains($scope.tagsInfoList, tag);
+        })
+
         //console.log($scope.allTags);
       }
 
