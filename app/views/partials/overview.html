@@ -11,7 +11,20 @@
     </table>
 
 </div>-->
-    <a class="btn btn-primary" ng-click="details = !details">Afficher/cacher les détails</a>
+    <div class="row">
+        <div class="col-xs-6">
+                <div class="input-group " >
+                    <input type="text" class="form-control" ng-model="initialValue">
+                     <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" ng-click="refreshOverall()">Refresh</button>
+                  </span>
+                </div><!-- /input-group -->
+        </div>
+     <div class="col-xs-6">
+            <a class="btn btn-primary col-xs-6" ng-click="details = !details">Afficher/cacher les détails</a>
+     </div>
+    </div>
+
     <hr/>
 
     <table class="table table-bordered table-condensed table-striped" id="overview">
@@ -24,9 +37,12 @@
         <tr ng-repeat="tag in normalTag">
             <td>{{tag}}</td>
             <td ng-repeat="(key, budget) in computedBudgets" style="text-align: right">
-                <span ng-class="{'text-success': budget.tags[tag].credit, 'text-danger': !budget.tags[tag].credit} ">{{budget.tags[tag].displayVal | number:2}}€</span>
-                <!--<span>{{budget.tags[tag]}}</span>-->
-                <span ng-if="details" class="text-muted small"><br/>{{budget.tags[tag].displayNote}}</span>
+
+                 <span ng-show="budget.tags[tag].displayVal != undefined">
+                    <span ng-class="{'text-success': budget.tags[tag].credit, 'text-danger': !budget.tags[tag].credit} ">{{budget.tags[tag].displayVal | number:2}}€</span>
+                    <!--<span>{{budget.tags[tag]}}</span>-->
+                    <span ng-if="details" class="text-muted small"><br/>{{budget.tags[tag].displayNote}}</span>
+                </span>
             </td>
         </tr>
 
@@ -40,9 +56,18 @@
         <tr ng-repeat="tag in extraTag">
             <td>{{tag}}</td>
             <td ng-repeat="(key, budget) in computedBudgets" style="text-align: right">
-                <span ng-class="{'text-success': budget.tags[tag].credit, 'text-danger': !budget.tags[tag].credit} ">{{budget.tags[tag].displayVal | number:2}}€</span>
-                <!--<span>{{budget.tags[tag]}}</span>-->
-                <span ng-if="details" class="text-muted small"><br/>{{budget.tags[tag].displayNote}}</span>
+
+
+                <span ng-show="budget.tags[tag].displayVal != undefined">
+
+                    <span class="pull-left">
+                        <a class='btn btn-xs' ng-click="toggleSpecialFor(budget.tags[tag])"><span  class="fa " ng-class="{'fa-circle-thin': !budget.tags[tag].special, 'fa-exclamation-circle': budget.tags[tag].special}"></span></a>
+                    </span>
+
+                    <span ng-class="{'text-success': budget.tags[tag].credit, 'text-danger': !budget.tags[tag].credit} ">{{budget.tags[tag].displayVal | number:2}}€</span>
+                    <!--<span>{{budget.tags[tag]}}</span>-->
+                    <span ng-if="details" class="text-muted small"><br/>{{budget.tags[tag].displayNote}}</span>
+                </span>
             </td>
         </tr>
 

@@ -8,6 +8,7 @@ angular.module('v9App')
       $scope.budgets = {};
 
       $scope.computedBudgets = {};
+      $scope.initialValue = 0;
 
       $scope.monthInProgress = moment().format('YYYY/MM');
 
@@ -24,6 +25,12 @@ angular.module('v9App')
 
             $scope.refreshOverall();
      });
+
+     $scope.toggleSpecialFor = function(budget) {
+         budget.special = !budget.special;
+         console.log(budget);
+         $scope.refreshOverall();
+     }
 
 
       $scope.setSelectedMonth = function(selectedMonth) {
@@ -67,7 +74,7 @@ angular.module('v9App')
         $scope.allTags = [];
 
 
-          var total = 0;
+          var total = parseInt($scope.initialValue,10);
 
          _.each($scope.computedBudgets, function(value, key, list) {
             _.each(value.tags, function(value2, key2, list2) {
@@ -111,7 +118,11 @@ angular.module('v9App')
             } else if ( key == $scope.getSelectedMonth()) {
               if (value.prediction) {
                   value.displayVal = value.prediction;
-                  value.displayNote = numberFilter(value.consumed,2)+" ( reste "+numberFilter((value.prevision-value.consumed),2)+")";
+                  value.displayNote = numberFilter(value.consumed,2);
+
+                  if (value.prevision > value.consumed ) {
+                      value.displayNote += " ( reste "+numberFilter((value.prevision-value.consumed),2)+")";
+                  }
               } else {
                   value.displayVal = value.consumed;
               }
@@ -120,6 +131,11 @@ angular.module('v9App')
             } else {
               value.displayVal = value.consumed;            
             }
+
+            if (value.special) {
+                return;
+            }
+
 
              if (value.displayVal > 0) {
                  budget.displayIncome += value.displayVal;
