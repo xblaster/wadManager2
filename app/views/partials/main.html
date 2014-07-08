@@ -77,11 +77,11 @@
        <td colspan="5">
         <div class=" pull-right">
             <a class="btn btn-default btn-xs" ng-class="{'strong-disable' : !isTagPresent(balance,tag.name)}" ng-style="{'background-color': isTagPresent(balance,tag.name)?tag.color:'#FFF' }" ng-repeat="tag in tagsInfo" ng-click="toggleTag(balance, tag.name)">{{tag.name}}</a>
-            <div ng-if="!balance.otherTag"><a class="btn btn-default btn-xs" ng-click="tagName = balance.tags[0]; onOtherTag(balance)">Autre</a>{{balance.tags[0]}}</div>
+            <div ng-if="!balance.otherTag"><a class="btn btn-default btn-xs" ng-click="balance.tmpTagName = balance.tags[0]; onOtherTag(balance)">Autre</a>{{balance.tags[0]}}</div>
 
 
             <div ng-if="balance.otherTag">
-                <input type="text" ng-model="tagName"/><a class="btn btn-default" ng-click="toggleTag(balance, tagName)">Ajouter</a>
+                <input type="text" ng-model="balance.tmpTagName" class="otherTag"/><a class="btn btn-default" ng-click="toggleTag(balance, balance.tmpTagName)">Ajouter</a>
             </div>
 
         </div>

@@ -130,6 +130,14 @@ angular.module('v9App')
     }
 
     $scope.onOtherTag = function(entry) {
+        var activeAutoComplete = function () {
+            $('.otherTag').autocomplete({
+            serviceUrl:'/entry/listTags',
+            minChars:2});
+        };
+
+        setTimeout(activeAutoComplete, 200);
+
         entry.otherTag= true;
     }
 
