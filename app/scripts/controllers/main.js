@@ -118,6 +118,9 @@ angular.module('v9App')
     }
 
     $scope.toggleTag = function(entry, tag) {
+        if(tag == undefined) {
+          tag= $('#otherTag_'+entry._id).val();
+        }
         entry.otherTag= false;
         if (_.contains(entry.tags, tag)) {
             entry.tags = _.without(entry.tags, tag);
