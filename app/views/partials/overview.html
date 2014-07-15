@@ -30,18 +30,21 @@
     <table class="table table-bordered table-condensed table-striped" id="overview">
         <tr>
             <th>Tag</th>
-            <th ng-class="{'active': getSelectedMonth() == key}" ng-click="setSelectedMonth(key)" ng-repeat="(key, budget) in computedBudgets">{{key}}</th>
+            <th ng-class="{'active': getSelectedMonth() == key}" ng-click="setSelectedMonth(key)" ng-repeat="(key, budget) in computedBudgets">{{key}}
+
+                <a class="btn btn-xs pull-right" ng-href="{{getBudgetLinkForKey(key)}}"><span class="fa fa-edit"></span></a>
+            </th>
         </tr>
 
         <!-- normal tag -->
-        <tr ng-repeat="tag in normalTag">
+        <tr ng-repeat="tag in normalTag" >
             <td>{{tag}}</td>
-            <td ng-repeat="(key, budget) in computedBudgets" style="text-align: right">
+            <td ng-repeat="(key, budget) in computedBudgets" style="text-align: right"  ng-click="setSelectedMonth(key)">
 
                  <span ng-show="budget.tags[tag].displayVal != undefined">
                     <span ng-class="{'text-success': budget.tags[tag].credit, 'text-danger': !budget.tags[tag].credit} ">{{budget.tags[tag].displayVal | number:2}}€</span>
                     <!--<span>{{budget.tags[tag]}}</span>-->
-                    <span ng-if="details" class="text-muted small"><br/>{{budget.tags[tag].displayNote}}</span>
+                    <span ng-show="details" class="text-muted small"><br/>{{budget.tags[tag].displayNote}}</span>
                 </span>
             </td>
         </tr>
@@ -55,7 +58,7 @@
         </tr>
         <tr ng-repeat="tag in extraTag">
             <td>{{tag}}</td>
-            <td ng-repeat="(key, budget) in computedBudgets" style="text-align: right">
+            <td ng-repeat="(key, budget) in computedBudgets" style="text-align: right" ng-click="setSelectedMonth(key)">
 
 
                 <span ng-show="budget.tags[tag].displayVal != undefined">
@@ -73,16 +76,16 @@
 
         <tr style="border-top: 0.2em solid #999">
             <td>Solde</td>
-            <td ng-repeat="(key, budget) in computedBudgets" style="text-align: right">
-                <span class="text-success">{{budget.displayIncome | number:2}}€</span><br/>
-                <span class="text-danger">{{budget.displayOutcome| number:2}}€</span><br/>
+            <td ng-repeat="(key, budget) in computedBudgets" style="text-align: right" ng-class="{'active': getSelectedMonth() == key}" >
+                <span class="text-success" ng-show="details">{{budget.displayIncome | number:2}}€</span><br ng-show="details"/>
+                <span class="text-danger" ng-show="details">{{budget.displayOutcome| number:2}}€</span><br ng-show="details"/>
                 {{budget.displayBalance | number:2}}€
             </td>
         </tr>
 
         <tr>
             <td>Total</td>
-            <td ng-repeat="(key, budget) in computedBudgets" style="text-align: right">
+            <td ng-repeat="(key, budget) in computedBudgets" style="text-align: right" >
                 <span>{{budget.total | number:2}}€</span><br/>
 
             </td>

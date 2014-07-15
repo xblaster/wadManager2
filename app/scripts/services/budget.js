@@ -39,7 +39,7 @@ angular.module('v9App')
 
         //consolidate data
         _.each(budgets.tags, function(value, key, list) {
-            console.log(value);
+            //console.log(value);
             if (value.prevision) {
                 if (value.credit ) {
                     budgets.incomePrevision+= value.prevision;
@@ -58,7 +58,7 @@ angular.module('v9App')
                 } else {
                     budgets.outcomePrevision+= value.prevision;
                     budgets.outcome+= value.consumed;
-                    console.log(budgets);
+                   // console.log(budgets);
                     if (value.prevision < value.consumed) {
                         budgets.outcomePrediction += (value.prevision - value.consumed);
                         value.prediction = value.prevision;

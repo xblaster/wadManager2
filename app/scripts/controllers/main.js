@@ -136,7 +136,7 @@ angular.module('v9App')
         var activeAutoComplete = function () {
             $('.otherTag').autocomplete({
             serviceUrl:'/entry/listTags',
-            minChars:2});
+            minChars:1});
         };
 
         setTimeout(activeAutoComplete, 200);

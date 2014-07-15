@@ -70,18 +70,28 @@ angular.module('v9App')
       }
 
       $scope.refreshOverall = function() {
-
+        //console.log("---------------");
         $scope.allTags = [];
 
 
-          var total = parseInt($scope.initialValue,10);
+          var totalParam = parseInt($scope.initialValue,10);
+          //console.log("total param init ")+totalParam;
 
-         _.each($scope.computedBudgets, function(value, key, list) {
+          //console.log($scope.computedBudgets);
+          var keys = _.keys($scope.computedBudgets).sort();
+          //console.log(keys);
+
+         _.each(keys, function(content, key, list) {
+            var  value = $scope.computedBudgets[content];
             _.each(value.tags, function(value2, key2, list2) {
               $scope.allTags.push(key2);
             });
 
-            total = $scope.refreshPrevisionForBudget(key,value, total).total;
+            //console.log("total");
+            //console.log(content);
+            //console.log(totalParam);
+
+            totalParam = $scope.refreshPrevisionForBudget(content,value, totalParam).total;
 
 
          }  );
@@ -89,7 +99,7 @@ angular.module('v9App')
           //_.sortBy($scope.allTags, function(num){ return Math.sin(num); });
         $scope.allTags = _.uniq($scope.allTags);
 
-        console.log($scope.tagsInfoList);
+        //console.log($scope.tagsInfoList);
 
         $scope.normalTag = _.filter($scope.allTags, function(tag) {
             return _.contains($scope.tagsInfoList, tag);
@@ -102,12 +112,20 @@ angular.module('v9App')
         //console.log($scope.allTags);
       }
 
+      $scope.getBudgetLinkForKey = function(key) {
+
+        var month = key.split("/")[1];
+        var year = key.split("/")[0];
+        return  "#/budget/edit/"+month+"/"+year;
+      }
+
       $scope.refreshPrevisionForBudget = function( key, budget, total) {
-        console.log(key)
+        //console.log(key)
 
         budget.displayIncome = 0;
         budget.displayOutcome = 0;
         budget.displayBalance = 0;
+        budget.total = 0;
 
         _.each(budget.tags, function(value, key2, list) {
             //console.log(key > $scope.getSelectedMonth());
@@ -120,9 +138,18 @@ angular.module('v9App')
                   value.displayVal = value.prediction;
                   value.displayNote = numberFilter(value.consumed,2);
 
-                  if (value.prevision > value.consumed ) {
-                      value.displayNote += " ( reste "+numberFilter((value.prevision-value.consumed),2)+")";
+                 // console.log(value);
+
+                  var diff = Math.abs(value.prevision) - Math.abs(value.consumed);
+                 // console.log("diif "+diff);
+                  if (diff > 0) {
+                      //console.log("diff ");
+                      var sign = (value.credit)?"":"-";
+                      value.displayNote += " ( reste "+sign+numberFilter(diff,2)+")";
                   }
+
+
+
               } else {
                   value.displayVal = value.consumed;
               }
@@ -149,7 +176,7 @@ angular.module('v9App')
 
 
         });
-
+        
         budget.total = total + budget.displayBalance;
 
         return budget;
