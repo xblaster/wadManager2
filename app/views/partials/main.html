@@ -64,8 +64,10 @@
   		<div  class="col-xs-2"><div class="pull-right">{{balance.amount | number:2}} EUR</div></div>
   		<div class="col-xs-2">
   			<div class="pull-right btn-group">
+            <a class="btn btn-xs btn-default btn-default" ng-click="setChecked(balance)"><span class="fa fa-check"></span></a>
              <a class="btn btn-xs btn-default" href="#/entry/edit/{{balance._id}}">edit</a>
-  			<a class="btn btn-xs btn-default btn-danger" ng-click="remove(balance._id)">Delete</a>
+  			     <a class="btn btn-xs btn-default btn-danger" ng-click="remove(balance._id)">Delete</a>
+
   			</div>
 
 

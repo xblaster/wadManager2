@@ -148,6 +148,14 @@ angular.module('v9App')
         return (entry.tags.length >= 1)
     }
 
+    $scope.setChecked = function(elt) {
+      elt.note = elt.note || "";
+      if (elt.note.indexOf('{checked}')==-1) {
+        elt.note+=" {checked}";
+        $scope.save(elt);
+      }
+    }
+
     $scope.save = function(elt) {
         $http.post('/entry/save', elt).success(function() {
             $scope.refreshBudget();
