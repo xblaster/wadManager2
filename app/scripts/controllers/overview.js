@@ -183,7 +183,7 @@ angular.module('v9App')
       }
 
 
-      for (var i = 0; i < 9; i++) {
+      for (var i = 0; i < 24; i++) {
           $scope.retrieveVarsFor(momentCursor);
           momentCursor = momentCursor.add('month',1);
       }

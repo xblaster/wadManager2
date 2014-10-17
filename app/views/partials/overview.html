@@ -1,4 +1,4 @@
-<div layout="vertical">
+<div>
 
    <!--<div ng-repeat="(key, budget) in computedBudgets" class="col-xs-2">
     <h1>{{key}}</h1>
@@ -18,10 +18,13 @@
                     <button class="btn btn-default" type="button" ng-click="refreshOverall()">Refresh</button>
                   </span>
                 </div><!-- /input-group -->
-        <!-- </div> -->
-     <div >
-            <a class="btn btn-primary" ng-click="details = !details">Afficher/cacher les détails</a>
-     </div>
+<!-- </div> -->
+    <div>
+        <md-switch ng-model="details" aria-label="Switch 1">
+            Afficher/cacher les détails
+        </md-switch>
+    </div>
+
 
     <hr/>
 
@@ -33,10 +36,11 @@
                 <a class="btn btn-xs pull-right" ng-href="{{getBudgetLinkForKey(key)}}"><span class="fa fa-edit"></span></a>
             </th>
         </tr>
-    </table>
-    <md-content flex layout-fill style="background-color:red">
+        <!-- for fixed headers -->
+<!--     </table>
+    <md-content flex layout-fill >
     <table class="table table-bordered table-condensed table-striped">
-        <!-- normal tag -->
+ -->        <!-- normal tag -->
         <tr ng-repeat="tag in normalTag" >
             <td class="col-xs-1">{{tag}}</td>
             <td class="col-xs-1" ng-repeat="(key, budget) in computedBudgets" style="text-align: right"  ng-click="setSelectedMonth(key)">
