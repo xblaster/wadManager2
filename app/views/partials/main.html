@@ -118,11 +118,19 @@
           <td style="text-align:right">{{budget.consumed | number: 2}}EUR</td>
           <td class="col-sm-3">
 
-              <div class="progress" ng-if="budget.prevision">
-                      <div class="progress-bar" ng-class="getClassFor(budget)" role="progressbar" style="width: {{getPercentFor(budget)}}%;">
+              <!-- <div class="progress" ng-if="budget.prevision"> -->
+<!--                       <div class="progress-bar" ng-class="getClassFor(budget)" role="progressbar" style="width: {{getPercentFor(budget)}}%;">
+                       
                       {{getPercentFor(budget) | number: 0 }}% 
-                </div>
-                </div>
+ -->
+                <!-- </div> -->
+<span>
+    <md-progress-circular mode="determinate" class="pull-left" ng-if="budget.prevision" value="{{getPercentForRadial(budget)}}" diameter="30"></md-progress-circular>
+     {{getPercentFor(budget) | number: 0 }}% 
+</span>
+
+
+
 
 
           </td>

@@ -84,6 +84,15 @@ angular.module('v9App')
        return res;
     }
 
+    $scope.getPercentForRadial = function (budget) {
+      var res = $scope.getPercentFor(budget);
+       if (res > 100) {
+        return 100;
+       }
+
+       return Math.round(res);
+    }
+
     $scope.getClassFor = function(budget) {
       var percent = $scope.getPercentFor(budget);
         console.log(budget)

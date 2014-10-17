@@ -5,6 +5,7 @@ angular.module('v9App', [
   'ngResource',
   'ngSanitize',
   'ngRoute',
+  'ngMaterial',
   'colorpicker.module'
 ])
   .config(function ($routeProvider, $locationProvider) {
