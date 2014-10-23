@@ -13,7 +13,7 @@ angular.module('v9App')
       $scope.monthInProgress = moment().format('YYYY/MM');
 
 
-     var past = momentCursor = moment('2014/06/01');
+     var past = momentCursor = moment('2014/05/01');
 
      $http.get('/params/get?name=tags').success(function(result) {
             $scope.tagsInfoList = [];
